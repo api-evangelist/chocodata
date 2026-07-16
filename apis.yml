@@ -1,0 +1,49 @@
+name: Chocodata
+description: >-
+  Web-scraping REST API that returns structured JSON from a large catalog of target sites (e-commerce, search engines,
+  social, real estate, finance, and more), with proxies, CAPTCHA, and anti-bot handling managed server-side. Offers an
+  npm-distributed MCP server, a live llms.txt docs manifest, and published Claude agent skills.
+url: https://chocodata.apievangelist.com/apis.yml
+created: '2026-07-16'
+modified: '2026-07-16'
+specificationVersion: '0.21'
+tags:
+  - web-scraping
+  - data-extraction
+  - serp
+  - e-commerce-data
+  - social-media-data
+  - proxy
+  - mcp
+  - agent-native
+  - structured-json
+apis:
+  - name: Chocodata Scraper API
+    description: >-
+      REST API (HTTP + JSON, API-key auth via ?api_key=) returning structured data from a catalog of sites. Endpoints
+      include Product, Search, Universal Web Scraper, and Batch (async). Base host is api.chocodata.com.
+    humanURL: https://chocodata.com/docs
+    baseURL: https://api.chocodata.com
+    tags:
+      - web-scraping
+      - data-extraction
+      - serp
+      - e-commerce-data
+      - social-media-data
+      - proxy
+      - mcp
+      - agent-native
+      - structured-json
+    properties:
+      - type: Documentation
+        url: https://chocodata.com/docs
+      - type: LLMSTxt
+        url: https://chocodata.com/docs/llms.txt
+maintainers:
+  - FN: Chocodata
+    url: https://chocodata.com
+generated:
+  by: apis.io/add
+  model: claude-opus-4-8
+  confidence: 90
+  at: '2026-07-16T16:04:09.145Z'
