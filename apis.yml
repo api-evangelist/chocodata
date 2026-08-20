@@ -8,6 +8,16 @@ created: '2026-07-16'
 modified: '2026-07-16'
 specificationVersion: '0.23'
 tags:
+  - Web Scraping
+  - Data Extraction
+  - SERP
+  - E-Commerce Data
+  - social-media-data
+  - Proxy
+  - MCP
+  - agent-native
+  - structured-json
+tags_raw:
   - web-scraping
   - data-extraction
   - serp
@@ -25,6 +35,16 @@ apis:
     humanURL: https://chocodata.com/docs
     baseURL: https://api.chocodata.com
     tags:
+      - Web Scraping
+      - Data Extraction
+      - SERP
+      - E-Commerce Data
+      - social-media-data
+      - Proxy
+      - MCP
+      - agent-native
+      - structured-json
+    tags_raw:
       - web-scraping
       - data-extraction
       - serp
