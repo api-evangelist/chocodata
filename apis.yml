@@ -4,6 +4,17 @@ description: >-
   social, real estate, finance, and more), with proxies, CAPTCHA, and anti-bot handling managed server-side. Offers an
   npm-distributed MCP server, a live llms.txt docs manifest, and published Claude agent skills.
 url: https://raw.githubusercontent.com/api-evangelist/chocodata/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - none
+  generated: '2026-08-28'
+  method: derived
 created: '2026-07-16'
 modified: '2026-07-16'
 specificationVersion: '0.23'
