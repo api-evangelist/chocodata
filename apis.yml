@@ -20,9 +20,9 @@ modified: '2026-07-16'
 specificationVersion: '0.23'
 tags:
   - Web Scraping
-  - data-extraction
-  - serp
-  - e-commerce-data
+  - Data Extraction
+  - SERP
+  - E-Commerce Data
   - social-media-data
   - Proxy
   - MCP
@@ -47,9 +47,9 @@ apis:
     baseURL: https://api.chocodata.com
     tags:
       - Web Scraping
-      - data-extraction
-      - serp
-      - e-commerce-data
+      - Data Extraction
+      - SERP
+      - E-Commerce Data
       - social-media-data
       - Proxy
       - MCP
