@@ -1,0 +1,27 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/docs/endpoints/batch
+type: webhook-catalog
+note: >-
+  Chocodata publishes no AsyncAPI document; this captures the real webhook surface documented
+  on the async Batch endpoint page. Webhooks are configured per-batch via the webhook_url body
+  parameter on POST /api/v1/{site}/batch (must be a public https URL).
+events:
+  - name: batch.completed
+    description: >-
+      Fired once when all items in an async batch have completed. The POST body is identical to
+      the GET /api/v1/{site}/batch/{id} polling response — batch status, per-item results with
+      http_status, data, duration_ms, and credits_charged.
+    delivery: HTTP POST to the batch's webhook_url
+    headers:
+      - name: X-ASA-Batch-Id
+        description: The batch UUID
+      - name: X-ASA-Event
+        description: Event name (batch.completed)
+      - name: X-ASA-Signature
+        description: sha256=<hmac-hex> — HMAC SHA-256 of the raw body
+security:
+  scheme: HMAC SHA-256 signature verification
+  secret: webhook_signature_secret, returned exactly once in the 201 batch-creation response
+  verification: Compute sha256 HMAC of the raw request body with the secret and timing-safe-compare against X-ASA-Signature.
+fallback: Polling via GET /api/v1/{site}/batch/{id} (status pending | running | complete | failed) when no webhook_url is set.

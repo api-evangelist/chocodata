@@ -1,0 +1,106 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/docs/guides/errors
+format: custom-json-envelope
+note: >-
+  Not RFC 9457 problem+json — every non-2xx response returns a consistent custom JSON envelope
+  {error, message, docs_url, request_id}, where docs_url deep-links to the error's row in the docs
+  table and request_id is the support trace handle. All non-2xx responses are free (never billed).
+envelope:
+  fields:
+    - name: error
+      description: Stable string error code (see catalog below)
+    - name: message
+      description: Human-readable explanation
+    - name: docs_url
+      description: Deep link to the error's row at https://chocodata.com/docs/guides/errors
+    - name: request_id
+      description: Trace id (req_...) to quote to support
+problem_types:
+  - code: invalid_params
+    status: 400
+    title: Invalid parameters
+    detail: Query identifier malformed, unsupported domain value, language not in the enum, missing query or url.
+    retryable: false
+    remediation: Fix the request.
+  - code: unauthorized
+    status: 401
+    title: Missing, malformed, or unknown API key
+    retryable: false
+    remediation: Get a valid key; auth failures are never billed.
+  - code: revoked
+    status: 401
+    title: API key was rotated out
+    retryable: false
+    remediation: Use your current key.
+  - code: insufficient_credits
+    status: 402
+    title: Out of credits with no active auto-top-up
+    retryable: true
+    remediation: Retry after topping up.
+  - code: not_found
+    status: 404
+    title: Unknown API path
+    retryable: false
+    remediation: Check the endpoint URL.
+  - code: item_not_found
+    status: 404
+    title: Target site returned 404 for the requested item
+    detail: Item is delisted, the identifier is malformed, or it never existed in this region. Response includes retryable false.
+    retryable: false
+    remediation: Drop the item from your set, or try a different region.
+  - code: upstream_timeout
+    status: 408
+    title: Target site took more than 45s to respond
+    retryable: true
+    remediation: Retry up to 3 times with 2s backoff.
+  - code: blocked_by_target
+    status: 422
+    title: Target site served a challenge page or 503
+    retryable: true
+    remediation: Retry with a 60s+ delay; the API already retried internally.
+  - code: rate_limited
+    status: 429
+    title: Exceeded per-key RPS or concurrency ceiling
+    retryable: true
+    remediation: Respect the Retry-After header.
+  - code: internal_error
+    status: 500
+    title: Unhandled exception on the provider side
+    retryable: true
+    remediation: Retry after ~5s; always logged provider-side.
+  - code: not_implemented
+    status: 501
+    title: Roadmap parameter passed (render_js, screenshot)
+    retryable: false
+    remediation: Wait for the feature.
+  - code: target_unreachable
+    status: 502
+    title: Target site blocked every internal retry
+    retryable: true
+    remediation: Retry with a 60s+ delay.
+  - code: extraction_failed
+    status: 502
+    title: Target served markup the extractor could not parse
+    detail: Usually a new site layout; the provider auto-files a ticket.
+    retryable: true
+    remediation: Typically works on retry.
+  - code: id_mismatch
+    status: 502
+    title: Requested item A, the site redirected to item B
+    retryable: false
+    remediation: The source identifier is stale; refresh it.
+  - code: placeholder_page
+    status: 502
+    title: Target served a generic placeholder instead of the requested item
+    retryable: false
+    remediation: Remove the delisted item from your set.
+  - code: capacity
+    status: 503
+    title: Provider-side pool protection rate limiting
+    retryable: true
+    remediation: Retry after the Retry-After header.
+retry_policy:
+  recommendation: Exponential backoff with jitter for retryable codes; never retry 400/401/404/501.
+  respected_header: Retry-After
+  sdk_behaviour: Official SDKs (Node/Python/Go/CLI) apply the retry policy automatically.

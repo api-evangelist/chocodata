@@ -1,0 +1,192 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Chocodata",
+    "version": "1.0.0",
+    "description": "One web scraper API for the whole web. Structured JSON from 237 sites across 17 categories with 499 endpoints; 344 return structured JSON. Coverage includes the Apple App Store, Google Play, YouTube (incl. comments and transcripts), Reddit, TikTok, X/Twitter, Instagram, Facebook, and LinkedIn. Pay only for successful (2xx) responses; median response time is 2.6 seconds end to end. Every endpoint follows the shape GET /api/v1/{site}/{resource}?api_key=YOUR_KEY&query=... The full per-site catalog is at https://chocodata.com/scraper-api. The concrete paths below illustrate the shared request/response pattern; the Universal endpoint scrapes any other URL.",
+    "contact": { "name": "Chocodata", "url": "https://chocodata.com", "email": "hello@chocodata.com" }
+  },
+  "servers": [{ "url": "https://api.chocodata.com" }],
+  "security": [{ "apiKeyQuery": [] }],
+  "paths": {
+    "/api/v1/{site}/{resource}": {
+      "get": {
+        "operationId": "scrape",
+        "summary": "Generic endpoint shape: scrape one resource type on one supported site.",
+        "description": "All 499 endpoints follow this shape. {site} is the target (google, amazon, walmart, linkedin, zillow, appstore, googleplay, youtube, reddit, tiktok, ...) and {resource} the data type (search, product, article, job, listing, video, transcript, comments, subreddit, post, ...). Parameters beyond api_key vary per endpoint; each landing page under https://chocodata.com/scraper-api/ documents its own parameter table.",
+        "parameters": [
+          { "name": "site", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Target site slug, e.g. google, amazon, walmart, zillow." },
+          { "name": "resource", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Resource type on that site, e.g. search, product, article, job." },
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key, passed as the api_key query parameter." },
+          { "name": "query", "in": "query", "required": false, "schema": { "type": "string" }, "description": "The common lookup parameter (keyword, ID, or URL); exact name and extras vary per endpoint." }
+        ],
+        "responses": {
+          "200": { "description": "Validated structured JSON for the requested resource.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." },
+          "400": { "description": "Invalid parameters." },
+          "502": { "description": "The target site blocked us or returned an unparseable page (not charged)." }
+        }
+      }
+    },
+    "/api/v1/universal/get": {
+      "get": {
+        "operationId": "universalGet",
+        "summary": "Scrape any URL on any site through the Universal Web Scraper API.",
+        "parameters": [
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key." },
+          { "name": "url", "in": "query", "required": true, "schema": { "type": "string", "format": "uri" }, "description": "The full https URL to fetch." },
+          { "name": "parse", "in": "query", "required": false, "schema": { "type": "string", "default": "auto", "enum": ["auto", "html", "text"] }, "description": "Response parse mode." },
+          { "name": "country", "in": "query", "required": false, "schema": { "type": "string" }, "description": "Two-letter country code for residential proxy geo-targeting." }
+        ],
+        "responses": {
+          "200": { "description": "The page as JSON in the chosen parse mode.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." },
+          "502": { "description": "The target site blocked us or returned an unparseable page (not charged)." }
+        }
+      }
+    },
+    "/api/v1/amazon/product": {
+      "get": {
+        "operationId": "getProduct",
+        "summary": "Example specific-item endpoint: structured data for a single Amazon product (ASIN).",
+        "parameters": [
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key, passed as the api_key query parameter." },
+          { "name": "query", "in": "query", "required": true, "schema": { "type": "string" }, "description": "10-character ASIN (or 10-char ISBN for books)." },
+          { "name": "domain", "in": "query", "required": false, "schema": { "type": "string", "default": "com", "enum": ["com", "co.uk", "de", "fr", "it", "es", "nl", "pl", "se", "ca", "com.mx", "com.br", "com.au", "co.jp", "sg", "in", "com.tr", "ae", "sa", "eg"] }, "description": "Amazon marketplace TLD." },
+          { "name": "language", "in": "query", "required": false, "schema": { "type": "string" }, "description": "Content language as xx_YY (e.g. en_US)." },
+          { "name": "add_html", "in": "query", "required": false, "schema": { "type": "boolean", "default": false }, "description": "Attach the raw page HTML under `html`." }
+        ],
+        "responses": {
+          "200": { "description": "Structured product data.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." },
+          "400": { "description": "Invalid parameters (e.g. ASIN not 10 chars)." },
+          "502": { "description": "The target site blocked us or returned an unparseable page (not charged)." }
+        }
+      }
+    },
+    "/api/v1/amazon/search": {
+      "get": {
+        "operationId": "getSearch",
+        "summary": "Example search endpoint: structured Amazon search results for a keyword.",
+        "parameters": [
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key, passed as the api_key query parameter." },
+          { "name": "query", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Search keyword(s)." },
+          { "name": "domain", "in": "query", "required": false, "schema": { "type": "string", "default": "com" } },
+          { "name": "page", "in": "query", "required": false, "schema": { "type": "integer", "default": 1 } }
+        ],
+        "responses": {
+          "200": { "description": "Search results.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." }
+        }
+      }
+    },
+    "/api/v1/appstore/product": {
+      "get": {
+        "operationId": "getAppStoreProduct",
+        "summary": "Specific-item endpoint: structured data for a single Apple App Store app.",
+        "parameters": [
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key, passed as the api_key query parameter." },
+          { "name": "query", "in": "query", "required": true, "schema": { "type": "string" }, "description": "App Store app id or bundle id." },
+          { "name": "country", "in": "query", "required": false, "schema": { "type": "string", "default": "us" }, "description": "Two-letter storefront country code." }
+        ],
+        "responses": {
+          "200": { "description": "Structured app data: title, developer, rating, price, screenshots, description, and more.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." },
+          "502": { "description": "The target site blocked us or returned an unparseable page (not charged)." }
+        }
+      }
+    },
+    "/api/v1/appstore/reviews": {
+      "get": {
+        "operationId": "getAppStoreReviews",
+        "summary": "Apple App Store reviews for a single app.",
+        "parameters": [
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key." },
+          { "name": "query", "in": "query", "required": true, "schema": { "type": "string" }, "description": "App Store app id." },
+          { "name": "country", "in": "query", "required": false, "schema": { "type": "string", "default": "us" }, "description": "Two-letter storefront country code." }
+        ],
+        "responses": {
+          "200": { "description": "List of reviews with rating, title, body, author, and date.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." }
+        }
+      }
+    },
+    "/api/v1/googleplay/product": {
+      "get": {
+        "operationId": "getGooglePlayProduct",
+        "summary": "Specific-item endpoint: structured data for a single Google Play app.",
+        "parameters": [
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key." },
+          { "name": "query", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Google Play package name, e.g. com.spotify.music." },
+          { "name": "country", "in": "query", "required": false, "schema": { "type": "string", "default": "us" }, "description": "Two-letter storefront country code." }
+        ],
+        "responses": {
+          "200": { "description": "Structured app data: title, developer, rating, installs, price, description, and more.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." },
+          "502": { "description": "The target site blocked us or returned an unparseable page (not charged)." }
+        }
+      }
+    },
+    "/api/v1/youtube/transcript": {
+      "get": {
+        "operationId": "getYouTubeTranscript",
+        "summary": "Specific-item endpoint: the timed transcript for a single YouTube video.",
+        "parameters": [
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key." },
+          { "name": "query", "in": "query", "required": true, "schema": { "type": "string" }, "description": "YouTube video id or watch URL." },
+          { "name": "language", "in": "query", "required": false, "schema": { "type": "string" }, "description": "Preferred transcript language code, e.g. en." }
+        ],
+        "responses": {
+          "200": { "description": "Transcript segments with start time, duration, and text.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." },
+          "502": { "description": "The target site blocked us or returned an unparseable page (not charged)." }
+        }
+      }
+    },
+    "/api/v1/youtube/comments": {
+      "get": {
+        "operationId": "getYouTubeComments",
+        "summary": "Comments for a single YouTube video.",
+        "parameters": [
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key." },
+          { "name": "query", "in": "query", "required": true, "schema": { "type": "string" }, "description": "YouTube video id or watch URL." }
+        ],
+        "responses": {
+          "200": { "description": "List of comments with author, text, like count, and timestamp.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." }
+        }
+      }
+    },
+    "/api/v1/reddit/post": {
+      "get": {
+        "operationId": "getRedditPost",
+        "summary": "Specific-item endpoint: a single Reddit post with its comment tree and vote data.",
+        "parameters": [
+          { "name": "api_key", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Your API key." },
+          { "name": "query", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Reddit post id or permalink URL." }
+        ],
+        "responses": {
+          "200": { "description": "Post body, author, score and upvote ratio, plus the nested comments with their vote data.", "content": { "application/json": { "schema": { "type": "object" } } } },
+          "401": { "description": "Missing or invalid API key." },
+          "502": { "description": "The target site blocked us or returned an unparseable page (not charged)." }
+        }
+      }
+    },
+    "/api/v1/amazon/batch": {
+      "post": {
+        "operationId": "createBatch",
+        "summary": "Submit an asynchronous batch of jobs (any site.resource, including universal.get).",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "type": "object" } } } },
+        "responses": {
+          "200": { "description": "Batch accepted; returns a batch id to poll." },
+          "401": { "description": "Missing or invalid API key." }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKeyQuery": { "type": "apiKey", "in": "query", "name": "api_key" }
+    }
+  }
+}

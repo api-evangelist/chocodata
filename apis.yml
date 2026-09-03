@@ -1,8 +1,9 @@
 name: Chocodata
-description: >-
-  Web-scraping REST API that returns structured JSON from a large catalog of target sites (e-commerce, search engines,
-  social, real estate, finance, and more), with proxies, CAPTCHA, and anti-bot handling managed server-side. Offers an
-  npm-distributed MCP server, a live llms.txt docs manifest, and published Claude agent skills.
+description: Web-scraping REST API that returns structured JSON from a large catalog of target sites (e-commerce,
+  search engines, social, real estate, finance, and more), with proxies, CAPTCHA, and anti-bot handling managed
+  server-side. Ships an OpenAPI 3.1 contract, official Node/Python/Go SDKs, a CLI, an npm-distributed stdio MCP
+  server (chocodata-mcp), live llms.txt manifests with markdown twins of every docs page, and an ai-plugin.json
+  discovery manifest. Bills only for successful (2xx) responses.
 url: https://raw.githubusercontent.com/api-evangelist/chocodata/refs/heads/main/apis.yml
 deliveryModel:
   model: unknown
@@ -16,9 +17,35 @@ deliveryModel:
   generated: '2026-08-28'
   method: derived
 created: '2026-07-16'
-modified: '2026-07-16'
+modified: '2026-09-03'
 specificationVersion: '0.23'
 tags:
+- Web Scraping
+- Data Extraction
+- SERP
+- E-Commerce Data
+- social-media-data
+- Proxy
+- MCP
+- agent-native
+- structured-json
+tags_raw:
+- web-scraping
+- data-extraction
+- serp
+- e-commerce-data
+- social-media-data
+- proxy
+- mcp
+- agent-native
+- structured-json
+apis:
+- name: Chocodata Scraper API
+  description: REST API (HTTP + JSON, API-key auth via ?api_key=) returning structured data from a catalog of sites.
+    Endpoints include Product, Search, Universal Web Scraper, and Batch (async). Base host is api.chocodata.com.
+  humanURL: https://chocodata.com/docs
+  baseURL: https://api.chocodata.com
+  tags:
   - Web Scraping
   - Data Extraction
   - SERP
@@ -28,7 +55,7 @@ tags:
   - MCP
   - agent-native
   - structured-json
-tags_raw:
+  tags_raw:
   - web-scraping
   - data-extraction
   - serp
@@ -38,43 +65,94 @@ tags_raw:
   - mcp
   - agent-native
   - structured-json
-apis:
-  - name: Chocodata Scraper API
-    description: >-
-      REST API (HTTP + JSON, API-key auth via ?api_key=) returning structured data from a catalog of sites. Endpoints
-      include Product, Search, Universal Web Scraper, and Batch (async). Base host is api.chocodata.com.
-    humanURL: https://chocodata.com/docs
-    baseURL: https://api.chocodata.com
-    tags:
-      - Web Scraping
-      - Data Extraction
-      - SERP
-      - E-Commerce Data
-      - social-media-data
-      - Proxy
-      - MCP
-      - agent-native
-      - structured-json
-    tags_raw:
-      - web-scraping
-      - data-extraction
-      - serp
-      - e-commerce-data
-      - social-media-data
-      - proxy
-      - mcp
-      - agent-native
-      - structured-json
-    properties:
-      - type: Documentation
-        url: https://chocodata.com/docs
-      - type: LLMSTxt
-        url: https://chocodata.com/docs/llms.txt
+  properties:
+  - type: Documentation
+    url: https://chocodata.com/docs
+  - type: LLMSTxt
+    url: https://chocodata.com/docs/llms.txt
+  - type: OpenAPI
+    url: openapi/chocodata-openapi.json
 maintainers:
-  - FN: Chocodata
-    url: https://chocodata.com
+- FN: Chocodata
+  url: https://chocodata.com
+  email: hello@chocodata.com
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 90
   at: '2026-07-16T16:04:09.145Z'
+common:
+- type: Website
+  url: https://chocodata.com
+- type: DomainSecurity
+  url: security/chocodata-domain-security.yml
+- type: Authentication
+  url: authentication/chocodata-authentication.yml
+- type: Packages
+  url: packages/chocodata-packages.yml
+- type: SDKs
+  url: packages/chocodata-packages.yml
+- type: WellKnown
+  url: well-known/chocodata-well-known.yml
+- type: MCPServer
+  url: mcp/chocodata-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/chocodata-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/chocodata-llms.txt
+- type: Overlay
+  url: overlays/chocodata-openapi-overlay.yaml
+- type: Conformance
+  url: conformance/chocodata-conformance.yml
+- type: ErrorCatalog
+  url: errors/chocodata-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/chocodata-lifecycle.yml
+- type: StatusPage
+  url: https://chocodata.com/status
+- type: Deprecation
+  url: lifecycle/chocodata-lifecycle.yml
+- type: Conventions
+  url: conventions/chocodata-conventions.yml
+- type: ChangeLog
+  url: changelog/chocodata-changelog.yml
+- type: CLI
+  url: cli/chocodata-cli.yml
+- type: Webhooks
+  url: asyncapi/chocodata-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/chocodata-agentic-access.yml
+- type: Plans
+  url: plans/chocodata-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/chocodata-rate-limits.yml
+- type: Documentation
+  url: https://chocodata.com/docs
+- type: APIReference
+  url: https://chocodata.com/docs/endpoint-reference
+- type: GettingStarted
+  url: https://chocodata.com/docs/getting-started
+- type: Pricing
+  url: https://chocodata.com/pricing
+- type: TermsOfService
+  url: https://chocodata.com/terms
+- type: PrivacyPolicy
+  url: https://chocodata.com/privacy
+- type: SignUp
+  url: https://app.chocodata.com/sign-up
+- type: Login
+  url: https://app.chocodata.com/login
+- type: GitHubOrganization
+  url: https://github.com/ChocoData-com
+- type: DeveloperPortal
+  url: https://app.chocodata.com
+- type: Console
+  url: https://app.chocodata.com
+image: https://chocodata.com/logo-512.png
+x-enrichment:
+  date: '2026-09-03'
+  status: enriched
+  artifacts_added: 25
+  pass: local-v2

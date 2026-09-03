@@ -1,0 +1,40 @@
+# generated: '2026-09-03'
+# method: generated
+# source: openapi/chocodata-openapi.json + docs enrichment (errors, rate limits, batch webhooks)
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Chocodata OpenAPI
+  version: 1.0.0
+extends: openapi/chocodata-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist:
+        profile: https://github.com/api-evangelist/chocodata
+        error-catalog: errors/chocodata-problem-types.yml
+        rate-limits: rate-limits/chocodata-rate-limits.yml
+        conventions: conventions/chocodata-conventions.yml
+  - target: $.info
+    update:
+      x-rate-limit-headers:
+        - Retry-After
+        - Asa-Concurrency
+        - Asa-Rps
+        - Asa-Cost
+        - Asa-Attempts
+  - target: $.paths['/api/v1/{site}/{resource}'].get
+    update:
+      x-notes: >-
+        Generic shape covering the full 499-endpoint catalog. Parameter names differ per endpoint
+        (amazon.product takes query, walmart.product takes url or id, bing.search takes q);
+        the browsable per-endpoint reference is at https://chocodata.com/scraper-api.
+  - target: $.paths['/api/v1/amazon/batch'].post
+    update:
+      x-webhook: >-
+        On completion POSTs the poll-response body to webhook_url with X-ASA-Event batch.completed
+        and an HMAC SHA-256 X-ASA-Signature; see asyncapi/chocodata-webhooks.yml.
+  - target: $.components.securitySchemes.apiKeyQuery
+    update:
+      x-key-prefixes:
+        - asa_live_
+      x-notes: Header auth (Authorization Bearer, X-API-Key) is rejected with 401; the query parameter is the only accepted location.

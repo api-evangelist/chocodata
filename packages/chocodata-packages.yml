@@ -1,0 +1,59 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/docs/guides/sdks + registry metadata endpoints (registry.npmjs.org, pypi.org, proxy.golang.org)
+note: >-
+  All five first-party clients confirmed on their registries, each published 2026-07-28 and pinned
+  at 0.1.0. The GitHub org ChocoData-com is shared with the sibling product Amazon Scraper API
+  (amazonscraperapi.com); only the chocodata-* repos and packages belong to Chocodata, so the
+  sibling's amazon-scraper-api-* packages and n8n node are deliberately excluded here.
+packages:
+  - language: javascript
+    registry: npm
+    name: chocodata
+    url: https://www.npmjs.com/package/chocodata
+    install: npm install chocodata
+    official: true
+    version: 0.1.0
+    published: '2026-07-28'
+    repository: https://github.com/ChocoData-com/chocodata-node
+    note: Node 18+, zero runtime dependencies, TypeScript types per endpoint, built-in token-bucket limiter.
+  - language: python
+    registry: pypi
+    name: chocodata
+    url: https://pypi.org/project/chocodata/
+    install: pip install chocodata
+    official: true
+    version: 0.1.0
+    published: '2026-07-28'
+    repository: https://github.com/ChocoData-com/chocodata-python
+    note: Python 3.9+, standard library only; AsyncChocodata wraps calls in asyncio.to_thread.
+  - language: go
+    registry: go
+    name: github.com/ChocoData-com/chocodata-go
+    url: https://pkg.go.dev/github.com/ChocoData-com/chocodata-go
+    install: go get github.com/ChocoData-com/chocodata-go
+    official: true
+    version: v0.1.0
+    published: '2026-07-28'
+    repository: https://github.com/ChocoData-com/chocodata-go
+    note: Module path is case-sensitive (ChocoData-com). Context-aware cancellation, net/http only.
+  - language: cli
+    registry: npm
+    name: chocodata-cli
+    url: https://www.npmjs.com/package/chocodata-cli
+    install: npm install -g chocodata-cli
+    official: true
+    version: 0.1.0
+    published: '2026-07-28'
+    repository: https://github.com/ChocoData-com/chocodata-cli
+    note: Terminal client; NDJSON streaming via --stdin-param, successes to stdout and errors to stderr.
+  - language: mcp
+    registry: npm
+    name: chocodata-mcp
+    url: https://www.npmjs.com/package/chocodata-mcp
+    install: npx -y chocodata-mcp
+    official: true
+    version: 0.1.0
+    published: '2026-07-28'
+    repository: https://github.com/ChocoData-com/chocodata-mcp
+    note: Stdio MCP server exposing 12 tools; auth via CHOCODATA_API_KEY env var.

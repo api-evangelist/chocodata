@@ -1,0 +1,27 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/docs/changelog + https://chocodata.com/status
+versioning:
+  scheme: url-path
+  current: v1
+  base_path: /api/v1/
+  policy: >-
+    Breaking API changes are announced 14 days in advance via email and the changelog page;
+    in-flight requests are always settled under the old contract. Billing policy changes carry
+    the same 14-day notice, reflected simultaneously on the billing doc and the pricing FAQ.
+deprecation:
+  policy_url: https://chocodata.com/docs/changelog
+  notice_period: 14 days
+  precedent: >-
+    The Spb-* response-header prefix was deprecated in favour of Asa-* (2026-04-16) with a 90-day
+    dual-serving window before removal — the provider's demonstrated deprecation practice.
+deprecated_operations: []
+status_page:
+  url: https://chocodata.com/status
+  status: 200
+  note: Live health of api.chocodata.com, auto-refreshing every 30 seconds.
+sla: >-
+  No formal public SLA; "Premium proxy pool + SLA on request" is listed as a Custom-plan
+  ($100-$2,000/mo) feature on the pricing page. Published latency figures: median 2.6s,
+  p95 6s, p99 ~10s end to end.
+changelog_url: https://chocodata.com/docs/changelog

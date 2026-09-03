@@ -1,0 +1,453 @@
+# Chocodata
+
+> One scraping API for the whole web. Get structured JSON from 237 sites - search engines, e-commerce, social, real estate, finance and more - via a single REST endpoint. Pay only for successful responses.
+
+Chocodata handles residential proxies, CAPTCHAs, and HTML parsing and returns validated, parity-checked structured JSON. It is built for developers and AI agents that need reliable web data without maintaining a scraping stack.
+
+## Key facts
+
+- Covers 237 targets across 17 categories with 499 endpoints total; 344 return structured JSON today, including 254 dedicated specific-item endpoints (products, articles, jobs, profiles, listings, videos, tracks, quotes, packages, app-store apps, YouTube videos and transcripts, Reddit posts and comments, and more). Everything else is scrapable via the Universal Web Scraper API.
+- Every endpoint follows the same shape: GET https://api.chocodata.com/api/v1/{site}/{resource}?api_key=YOUR_KEY&query=...
+- The free plan includes 1,000 requests (5,000 credits) as a one-time allowance (not monthly) across all 237 targets, no credit card.
+- Paid plans: Vibe $19/mo (27,000 requests), Pro $49/mo (82,000 requests), Custom $100-$2,000/mo.
+- Pay-as-you-go top-up is $0.90 per 1,000 successful requests, available on any plan.
+- Credits model: 1 request = 5 credits (JS render +10, screenshot +10).
+- Non-2xx responses are never charged: you pay only for successful results.
+- Speed: the median scrape completes in 2.6 seconds end to end (p95 6 s, p99 ~10 s), including proxy routing, anti-bot handling, retries, and parsing. Residential proxies, country-matched automatically.
+- Official SDKs for Node.js, Python, Go, and a CLI, plus an MCP server for AI agents.
+- Every supported site has its own landing page under https://chocodata.com/scraper-api/ (all 383 are listed in the Scraper APIs section at the end of this file).
+
+## For AI agents
+
+- [Machine-readable API usage](https://chocodata.com/api/ai): how and when to call the API, written for models.
+- [OpenAPI specification](https://chocodata.com/openapi.json): full machine-readable API spec.
+- [Plugin manifest](https://chocodata.com/.well-known/ai-plugin.json): agent/plugin discovery manifest.
+- [Documentation manifest](https://chocodata.com/docs/llms.txt): llms.txt index of every docs page.
+
+## Documentation
+
+- [Getting started](https://chocodata.com/docs/getting-started): Make your first scrape in under 2 minutes. Get an API key, fire one cURL request, parse the structured JSON...
+- [Core concepts - how the API works](https://chocodata.com/docs/core-concepts): One request shape for the whole web. Dedicated specific-item endpoints vs the Universal scraper, the credit model,...
+- [Endpoint reference](https://chocodata.com/docs/endpoint-reference): How 499 endpoints share one request and response shape. The resource-type model, the shared envelope, and how to...
+- [Authentication](https://chocodata.com/docs/guides/authentication): How to authenticate requests - pass your API key as an api_key query parameter. Keys have prefixes, can be rotated,...
+- [Product endpoint](https://chocodata.com/docs/endpoints/product): Extract full product data for a single product page - dozens of structured fields including price, variations,...
+- [Error codes & retry semantics](https://chocodata.com/docs/guides/errors): Complete list of error codes the API returns, when to retry, and how to back off. Only 2xx responses are billed.
+- [Search endpoint](https://chocodata.com/docs/endpoints/search): Run keyword searches on any supported site (search engines, marketplaces, job boards, and more) and get ranked...
+- [Rate limits & concurrency](https://chocodata.com/docs/guides/rate-limits): Per-plan ceilings on sustained RPS and concurrent in-flight requests. What 429 means, how to check your current...
+- [Universal Web Scraper API](https://chocodata.com/docs/endpoints/universal): Scrape any URL on the web to JSON, clean HTML, or plain text. Residential proxies and anti-bot handling for sites...
+- [Batch endpoint (async)](https://chocodata.com/docs/endpoints/batch): Submit up to 1,000 product IDs, URLs, or search queries in one call. Receive results via webhook or poll.
+- [SDKs, CLI & MCP](https://chocodata.com/docs/guides/sdks): Install and first-request snippets for the official Node, Python, Go, CLI, and MCP integrations. Each wraps auth,...
+- [Country, region, and content language](https://chocodata.com/docs/guides/country-and-language): How our API routes traffic to the right regional storefront and which languages each region actually serves.
+- [Scraping Social Media & App Stores](https://chocodata.com/docs/guides/social-and-app-stores): One REST request returns structured JSON from the App Store, Google Play, YouTube, Reddit, TikTok, X, Instagram,...
+- [Billing policy](https://chocodata.com/docs/guides/billing): Exactly which response types cost credits. Simple rule - only successful (2xx) responses are billed.
+- [Changelog](https://chocodata.com/docs/changelog): Every visible change to the API, the SDKs, and the dashboard. Newest first. Breaking changes are flagged; we give...
+
+## Integrations and SDKs
+
+- [Python SDK](https://chocodata.com/integrations/python): Official Python client for the Chocodata.
+- [Node.js SDK](https://chocodata.com/integrations/nodejs): Official Node.js / TypeScript client.
+- [Go SDK](https://chocodata.com/integrations/go): Official Go client.
+- [CLI](https://chocodata.com/integrations/cli): Command-line tool for ad-hoc scrapes and shell scripts.
+- [MCP server](https://chocodata.com/integrations/mcp): Model Context Protocol server so AI agents can call the API directly.
+
+## Product
+
+- [Chocodata](https://chocodata.com/): Homepage: live demo, capabilities, and pricing for the web scraping API.
+- [Pricing](https://chocodata.com/pricing): Plans and pay-as-you-go rates. You pay only for successful (2xx) responses.
+- [Features](https://chocodata.com/features): What the API extracts: 237 targets across 17 categories, validated JSON.
+- [Scraper directory](https://chocodata.com/scraper-api): All 383 site pages: 139 with a dedicated structured-JSON endpoint, the rest via the Universal Web Scraper API.
+- [Status](https://chocodata.com/status): Live service status, uptime, and component health.
+
+## Company
+
+- [Affiliate program](https://chocodata.com/affiliate): Earn recurring commission for referring developers to the API.
+- [Privacy policy](https://chocodata.com/privacy): How customer and visitor data is handled.
+- [Terms of service](https://chocodata.com/terms): Terms governing use of the API and website.
+
+## Scraper APIs (all 383 landing pages)
+
+- [ChatGPT Scraper API](https://chocodata.com/scraper-api/chatgpt): Scrape ChatGPT search via the Universal Web Scraper API; fields like conversation title, user prompt text, assistant response text, message order. (AI)
+- [Claude Scraper API](https://chocodata.com/scraper-api/claude): Scrape Claude search via the Universal Web Scraper API; fields like conversation title, human message text, assistant message text, turn sequence. (AI)
+- [DeepSeek Scraper API](https://chocodata.com/scraper-api/deepseek): Scrape DeepSeek search via the Universal Web Scraper API; fields like page heading, model names, API pricing tiers, documentation text. (AI)
+- [Gemini Scraper API](https://chocodata.com/scraper-api/gemini): Scrape Gemini search via the Universal Web Scraper API; fields like conversation title, prompt text, response text, message order. (AI)
+- [Grok Scraper API](https://chocodata.com/scraper-api/grok): Scrape Grok search via the Universal Web Scraper API; fields like conversation title, user query, assistant answer, turn sequence. (AI)
+- [Midjourney Scraper API](https://chocodata.com/scraper-api/midjourney): Scrape Midjourney search via the Universal Web Scraper API; fields like image URL, text prompt, author handle, creation date. (AI)
+- [Perplexity Scraper API](https://chocodata.com/scraper-api/perplexity): Scrape Perplexity search via the Universal Web Scraper API; fields like question text, answer body, cited source URLs, source titles. (AI)
+- [AutoScout24 Scraper API](https://chocodata.com/scraper-api/autoscout24): Scrape AutoScout24 search via the Universal Web Scraper API; fields like make and model, price, mileage, first registration year. (Automotive)
+- [Autotrader Scraper API](https://chocodata.com/scraper-api/autotrader): Dedicated structured-JSON endpoint for Autotrader search: result title (year make model), price, mileage, dealer / seller name. (Automotive)
+- [Carfax Scraper API](https://chocodata.com/scraper-api/carfax): Scrape Carfax search via the Universal Web Scraper API; fields like make and model, listing price, mileage, model year. (Automotive)
+- [Cargurus Scraper API](https://chocodata.com/scraper-api/cargurus): Scrape Cargurus search via the Universal Web Scraper API; fields like make and model, price, deal rating, mileage. (Automotive)
+- [Cars Scraper API](https://chocodata.com/scraper-api/cars): Dedicated structured-JSON endpoint for Cars search: result title (year make model), price, mileage, deal badge / price rating. (Automotive)
+- [Mobile.de Scraper API](https://chocodata.com/scraper-api/mobile-de): Scrape Mobile.de search via the Universal Web Scraper API; fields like make and model, price, mileage, first registration. (Automotive)
+- [Webmotors Scraper API](https://chocodata.com/scraper-api/webmotors): Dedicated structured-JSON endpoint for Webmotors search: result title (make model version), price (BRL), mileage (km), model year / manufacture year....
+- [Clutch Scraper API](https://chocodata.com/scraper-api/clutch): Scrape Clutch search via the Universal Web Scraper API; fields like company name, overall rating, review count, service lines. (B2B & Companies)
+- [LinkedIn Company Scraper API](https://chocodata.com/scraper-api/linkedin-company): Dedicated structured-JSON endpoint for LinkedIn company: company name, tagline, industry, company size (headcount band). (B2B & Companies)
+- [SEMrush Domain Scraper API](https://chocodata.com/scraper-api/semrush-domain): Scrape SEMrush domain via the Universal Web Scraper API; fields like authority score, organic search traffic estimate, organic keyword count, paid keyword...
+- [SimilarWeb Scraper API](https://chocodata.com/scraper-api/similarweb): Scrape SimilarWeb search via the Universal Web Scraper API; fields like global rank, country rank, category rank, total monthly visits. (B2B & Companies)
+- [ZoomInfo Scraper API](https://chocodata.com/scraper-api/zoominfo): Scrape ZoomInfo search via the Universal Web Scraper API; fields like company name, industry, estimated revenue, employee count. (B2B & Companies)
+- [Anaconda Scraper API](https://chocodata.com/scraper-api/anaconda): Dedicated structured-JSON endpoint for Anaconda search: package name, channel / owner, short description, supported platforms. (Developer)
+- [Ask Ubuntu Scraper API](https://chocodata.com/scraper-api/ask-ubuntu): Dedicated structured-JSON endpoint for Ask Ubuntu search: question title, excerpt / snippet, tags, vote score. (Developer)
+- [Codeberg Scraper API](https://chocodata.com/scraper-api/codeberg): Dedicated structured-JSON endpoint for Codeberg search: repository name, owner (user/org), description, primary language. (Developer)
+- [Crates Scraper API](https://chocodata.com/scraper-api/crates): Dedicated structured-JSON endpoint for Crates search: crate name, description, latest version, total downloads. (Developer)
+- [DEV Scraper API](https://chocodata.com/scraper-api/dev): Dedicated structured-JSON endpoint for DEV search: post title, author username, tags, published date. (Developer)
+- [Dockerhub Scraper API](https://chocodata.com/scraper-api/dockerhub): Scrape Dockerhub search via the Universal Web Scraper API; fields like image name, short description, pull count, star count. (Developer)
+- [Gitea Scraper API](https://chocodata.com/scraper-api/gitea): Dedicated structured-JSON endpoint for Gitea search: repository name, owner, description, primary language. (Developer)
+- [GitHub Repository Scraper API](https://chocodata.com/scraper-api/github-repository): Dedicated structured-JSON endpoint for GitHub repository: repo name and owner, description, star count, fork count. (Developer)
+- [GitLab Scraper API](https://chocodata.com/scraper-api/gitlab): Dedicated structured-JSON endpoint for GitLab search: result title, namespace/path, description, result type. (Developer)
+- [Hacker News Scraper API](https://chocodata.com/scraper-api/hacker-news): Dedicated structured-JSON endpoint for Hacker News search: title, story URL, author, points. (Developer)
+- [Hex.pm Package Scraper API](https://chocodata.com/scraper-api/hex-pm-package): Dedicated structured-JSON endpoint for Hex.pm package. (Developer)
+- [Hex.pm Scraper API](https://chocodata.com/scraper-api/hex-pm): Dedicated structured-JSON endpoint for Hex.pm search. (Developer)
+- [Hugging Face Package Scraper API](https://chocodata.com/scraper-api/hugging-face-package): Dedicated structured-JSON endpoint for Hugging Face package. (Developer)
+- [Hugging Face Scraper API](https://chocodata.com/scraper-api/hugging-face): Dedicated structured-JSON endpoint for Hugging Face search. (Developer)
+- [Lobsters Story Scraper API](https://chocodata.com/scraper-api/lobsters-story): Dedicated structured-JSON endpoint for Lobsters story: title, submitted URL, submitter, tags. (Developer)
+- [Luarocks Scraper API](https://chocodata.com/scraper-api/luarocks): Scrape Luarocks search via the Universal Web Scraper API; fields like module name, summary/description, author, license. (Developer)
+- [MathOverflow Scraper API](https://chocodata.com/scraper-api/mathoverflow): Dedicated structured-JSON endpoint for MathOverflow search: question title, tags, score, answer count. (Developer)
+- [Maven Scraper API](https://chocodata.com/scraper-api/maven): Scrape Maven search via the Universal Web Scraper API; fields like group ID, artifact ID, version list, license. (Developer)
+- [npm Scraper API](https://chocodata.com/scraper-api/npm): Dedicated structured-JSON endpoint for npm search: result package name, result position, package URL, short description. (Developer)
+- [Nuget Scraper API](https://chocodata.com/scraper-api/nuget): Scrape Nuget search via the Universal Web Scraper API; fields like package ID, description, authors, total downloads. (Developer)
+- [Pkggo Scraper API](https://chocodata.com/scraper-api/pkggo): Scrape Pkggo search via the Universal Web Scraper API; fields like import path, synopsis, latest version, license. (Developer)
+- [pub.dev Scraper API](https://chocodata.com/scraper-api/pub-dev): Dedicated structured-JSON endpoint for pub.dev search: result package name, result position, package URL, short description. (Developer)
+- [RubyGems Scraper API](https://chocodata.com/scraper-api/rubygems): Dedicated structured-JSON endpoint for RubyGems search: result gem name, result position, gem URL, short description. (Developer)
+- [Server Fault Scraper API](https://chocodata.com/scraper-api/server-fault): Dedicated structured-JSON endpoint for Server Fault search: result question title, result position, question URL, tags. (Developer)
+- [Stack Overflow Scraper API](https://chocodata.com/scraper-api/stack-overflow): Dedicated structured-JSON endpoint for Stack Overflow search: result question title, result position, question URL, tags. (Developer)
+- [Super User Scraper API](https://chocodata.com/scraper-api/super-user): Dedicated structured-JSON endpoint for Super User search: result question title, result position, question URL, tags. (Developer)
+- [Wikipedia Scraper API](https://chocodata.com/scraper-api/wikipedia): Dedicated structured-JSON endpoint for Wikipedia search: result article title, result position, article URL, matching snippet. (Developer)
+- [1688 Scraper API](https://chocodata.com/scraper-api/1688): Scrape 1688 search via the Universal Web Scraper API; fields like product title, tiered wholesale price, minimum order quantity, supplier/company name....
+- [Ajio Scraper API](https://chocodata.com/scraper-api/ajio): Dedicated structured-JSON endpoint for Ajio search: result title, brand, offer price, discount percentage. (E-commerce)
+- [Alibaba Scraper API](https://chocodata.com/scraper-api/alibaba): Scrape Alibaba search via the Universal Web Scraper API; fields like product title, price range, minimum order quantity, supplier company name. (E-commerce)
+- [AliExpress Scraper API](https://chocodata.com/scraper-api/aliexpress): Scrape AliExpress search via the Universal Web Scraper API; fields like product title, price, star rating, orders sold. (E-commerce)
+- [Allegro Scraper API](https://chocodata.com/scraper-api/allegro): Scrape Allegro search via the Universal Web Scraper API; fields like offer title, price, seller name, seller rating. (E-commerce)
+- [Amazon Ads Scraper API](https://chocodata.com/scraper-api/amazon-ads): Scrape Amazon Ads search via the Universal Web Scraper API; fields like sponsored flag, advertised product title, ASIN, ad slot position. (E-commerce)
+- [Amazon Autocomplete Scraper API](https://chocodata.com/scraper-api/amazon-autocomplete): Scrape Amazon Autocomplete search via the Universal Web Scraper API; fields like suggested query text, suggestion rank, department or alias, query prefix....
+- [Amazon Books Scraper API](https://chocodata.com/scraper-api/amazon-books): Scrape Amazon Books search via the Universal Web Scraper API; fields like book title, author, format (paperback/hardcover/Kindle), price. (E-commerce)
+- [Amazon Featured Scraper API](https://chocodata.com/scraper-api/amazon-featured): Scrape Amazon Featured search via the Universal Web Scraper API; fields like featured product title, ASIN, placement label, price. (E-commerce)
+- [Amazon Image search Scraper API](https://chocodata.com/scraper-api/amazon-image-search): Scrape Amazon Image search search via the Universal Web Scraper API; fields like matched product title, ASIN, price, star rating. (E-commerce)
+- [Amazon Offers Scraper API](https://chocodata.com/scraper-api/amazon-offers): Scrape Amazon Offers search via the Universal Web Scraper API; fields like seller name, offer price, item condition, shipping cost. (E-commerce)
+- [Amazon Product Scraper API](https://chocodata.com/scraper-api/amazon-product): Dedicated structured-JSON endpoint for Amazon product: title, ASIN, price and list price, Buy Box seller. (E-commerce)
+- [Amazon Scraper API](https://chocodata.com/scraper-api/amazon): Dedicated structured-JSON endpoint for Amazon search: result title, ASIN, price, star rating and review count. (E-commerce)
+- [Amazon Sellers Scraper API](https://chocodata.com/scraper-api/amazon-sellers): Scrape Amazon Sellers search via the Universal Web Scraper API; fields like seller business name, feedback rating percentage, feedback count, business address....
+- [Amazon Zip Code Scraper API](https://chocodata.com/scraper-api/amazon-zip-code): Scrape Amazon Zip Code search via the Universal Web Scraper API; fields like price for location, availability status, estimated delivery date, delivery zip...
+- [Argos Scraper API](https://chocodata.com/scraper-api/argos): Scrape Argos search via the Universal Web Scraper API; fields like product title, price, catalogue number, star rating. (E-commerce)
+- [ASOS Scraper API](https://chocodata.com/scraper-api/asos): Dedicated structured-JSON endpoint for ASOS search: result title, brand, price, color. (E-commerce)
+- [Bed Bath & Beyond Scraper API](https://chocodata.com/scraper-api/bed-bath-beyond): Scrape Bed Bath & Beyond search via the Universal Web Scraper API; fields like product title, price, brand, star rating. (E-commerce)
+- [Best Buy Scraper API](https://chocodata.com/scraper-api/best-buy): Scrape Best Buy search via the Universal Web Scraper API; fields like product title, price, SKU, customer rating. (E-commerce)
+- [Bing Shopping Scraper API](https://chocodata.com/scraper-api/bing-shopping): Scrape Bing shopping via the Universal Web Scraper API; fields like product title, price, merchant or seller name, product rating. (E-commerce)
+- [Bodega Aurrerá Scraper API](https://chocodata.com/scraper-api/bodega-aurrer): Scrape Bodega Aurrerá search via the Universal Web Scraper API; fields like product title, price (MXN), brand, promotional or member price. (E-commerce)
+- [Bol Scraper API](https://chocodata.com/scraper-api/bol): Dedicated structured-JSON endpoint for Bol search: result title, price, seller name, rating. (E-commerce)
+- [Cdiscount Scraper API](https://chocodata.com/scraper-api/cdiscount): Scrape Cdiscount search via the Universal Web Scraper API; fields like product title, list price, discounted price, product URL. (E-commerce)
+- [Chewy Scraper API](https://chocodata.com/scraper-api/chewy): Scrape Chewy search via the Universal Web Scraper API; fields like product title, brand, price, autoship price. (E-commerce)
+- [Costco Scraper API](https://chocodata.com/scraper-api/costco): Scrape Costco search via the Universal Web Scraper API; fields like product title, price, item number, member savings. (E-commerce)
+- [Daraz Scraper API](https://chocodata.com/scraper-api/daraz): Scrape Daraz search via the Universal Web Scraper API; fields like product title, price, discount percentage, seller rating. (E-commerce)
+- [Depop Scraper API](https://chocodata.com/scraper-api/depop): Scrape Depop search via the Universal Web Scraper API; fields like item title, price, seller username, item condition. (E-commerce)
+- [eBay Related Searches Scraper API](https://chocodata.com/scraper-api/ebay-related-searches): Dedicated structured-JSON endpoint for eBay related_searches. (E-commerce)
+- [eBay Scraper API](https://chocodata.com/scraper-api/ebay): Dedicated structured-JSON endpoint for eBay search: result title, price or current bid, buying format (auction or Buy It Now), item condition. (E-commerce)
+- [eBay Seller Scraper API](https://chocodata.com/scraper-api/ebay-seller): Dedicated structured-JSON endpoint for eBay seller. (E-commerce)
+- [Etsy Scraper API](https://chocodata.com/scraper-api/etsy): Scrape Etsy search via the Universal Web Scraper API; fields like listing title, price, shop name, star rating. (E-commerce)
+- [Falabella Scraper API](https://chocodata.com/scraper-api/falabella): Dedicated structured-JSON endpoint for Falabella search: result title, brand, regular and offer price, CMR or member price. (E-commerce)
+- [Fashionphile Scraper API](https://chocodata.com/scraper-api/fashionphile): Scrape Fashionphile search via the Universal Web Scraper API; fields like item title, brand, price, condition grade. (E-commerce)
+- [Flipkart Scraper API](https://chocodata.com/scraper-api/flipkart): Dedicated structured-JSON endpoint for Flipkart search: product title, current price, MRP and discount percent, rating and review count. (E-commerce)
+- [GOAT Scraper API](https://chocodata.com/scraper-api/goat): Scrape GOAT search via the Universal Web Scraper API; fields like product name, lowest ask price, retail price, size availability. (E-commerce)
+- [Grailed Scraper API](https://chocodata.com/scraper-api/grailed): Scrape Grailed search via the Universal Web Scraper API; fields like listing title, designer, price, size. (E-commerce)
+- [Home Depot Scraper API](https://chocodata.com/scraper-api/home-depot): Scrape Home Depot search via the Universal Web Scraper API; fields like product title, price, brand, star rating. (E-commerce)
+- [Idealo Scraper API](https://chocodata.com/scraper-api/idealo): Scrape Idealo search via the Universal Web Scraper API; fields like product title, lowest price, merchant name, offer count. (E-commerce)
+- [IKEA Scraper API](https://chocodata.com/scraper-api/ikea): Dedicated structured-JSON endpoint for IKEA search: product name, article number, price, product URL. (E-commerce)
+- [IndiaMART Scraper API](https://chocodata.com/scraper-api/indiamart): Scrape IndiaMART search via the Universal Web Scraper API; fields like product title, price, supplier company name, location. (E-commerce)
+- [Instacart Scraper API](https://chocodata.com/scraper-api/instacart): Scrape Instacart search via the Universal Web Scraper API; fields like product name, price, unit or size, retailer. (E-commerce)
+- [Jcpenney Scraper API](https://chocodata.com/scraper-api/jcpenney): Scrape Jcpenney search via the Universal Web Scraper API; fields like product name, sale and original price, brand, star rating. (E-commerce)
+- [Kroger Scraper API](https://chocodata.com/scraper-api/kroger): Dedicated structured-JSON endpoint for Kroger search: product name, price, unit size, product URL. (E-commerce)
+- [Lazada Scraper API](https://chocodata.com/scraper-api/lazada): Scrape Lazada search via the Universal Web Scraper API; fields like product title, current price, discount percentage, rating. (E-commerce)
+- [Lowes Scraper API](https://chocodata.com/scraper-api/lowes): Scrape Lowes search via the Universal Web Scraper API; fields like product name, price, brand, model number. (E-commerce)
+- [Macys Scraper API](https://chocodata.com/scraper-api/macys): Scrape Macys search via the Universal Web Scraper API; fields like product name, brand, price, discount. (E-commerce)
+- [Magazine Luiza Scraper API](https://chocodata.com/scraper-api/magazine-luiza): Scrape Magazine Luiza search via the Universal Web Scraper API; fields like product title, price, installment terms, seller name. (E-commerce)
+- [Marks & Spencer Scraper API](https://chocodata.com/scraper-api/marks-spencer): Scrape Marks & Spencer search via the Universal Web Scraper API; fields like product name, price, available colors, size availability. (E-commerce)
+- [Mediamarkt Scraper API](https://chocodata.com/scraper-api/mediamarkt): Scrape Mediamarkt search via the Universal Web Scraper API; fields like product title, price, brand, availability. (E-commerce)
+- [Meesho Scraper API](https://chocodata.com/scraper-api/meesho): Scrape Meesho search via the Universal Web Scraper API; fields like product name, price, discount percentage, rating. (E-commerce)
+- [Menards Scraper API](https://chocodata.com/scraper-api/menards): Scrape Menards search via the Universal Web Scraper API; fields like product name, price, model number, brand. (E-commerce)
+- [Mercado Libre Scraper API](https://chocodata.com/scraper-api/mercado-libre): Scrape Mercado Libre search via the Universal Web Scraper API; fields like product title, price, currency, seller name. (E-commerce)
+- [Mercari Scraper API](https://chocodata.com/scraper-api/mercari): Scrape Mercari search via the Universal Web Scraper API; fields like listing title, price, item condition, brand. (E-commerce)
+- [Myntra Scraper API](https://chocodata.com/scraper-api/myntra): Dedicated structured-JSON endpoint for Myntra search: product name, brand, price, discount percent. (E-commerce)
+- [Naver Shopping Scraper API](https://chocodata.com/scraper-api/naver-shopping): Scrape Naver Shopping search via the Universal Web Scraper API; fields like product name, lowest price, seller offer list, review count. (E-commerce)
+- [Newegg Scraper API](https://chocodata.com/scraper-api/newegg): Dedicated structured-JSON endpoint for Newegg search: product title, price, Newegg item number, rating and review count. (E-commerce)
+- [Nike Scraper API](https://chocodata.com/scraper-api/nike): Dedicated structured-JSON endpoint for Nike search: product name, price, subtitle / category, color count. (E-commerce)
+- [Noon Scraper API](https://chocodata.com/scraper-api/noon): Dedicated structured-JSON endpoint for Noon search: result title, price (AED/SAR/EGP), product URL, result position. (E-commerce)
+- [Nordstrom Scraper API](https://chocodata.com/scraper-api/nordstrom): Scrape Nordstrom search via the Universal Web Scraper API; fields like product name, brand, price, sale badge. (E-commerce)
+- [Notebooksbilliger Scraper API](https://chocodata.com/scraper-api/notebooksbilliger): Scrape Notebooksbilliger search via the Universal Web Scraper API; fields like product title, price (EUR), key specifications, availability status. (E-commerce)
+- [Otto Scraper API](https://chocodata.com/scraper-api/otto): Dedicated structured-JSON endpoint for Otto search: result title, price (EUR), brand, product URL. (E-commerce)
+- [Overstock Scraper API](https://chocodata.com/scraper-api/overstock): Scrape Overstock search via the Universal Web Scraper API; fields like product name, price, sale price, star rating. (E-commerce)
+- [Petco Scraper API](https://chocodata.com/scraper-api/petco): Scrape Petco search via the Universal Web Scraper API; fields like product title, brand, price, repeat-delivery price. (E-commerce)
+- [Poshmark Scraper API](https://chocodata.com/scraper-api/poshmark): Dedicated structured-JSON endpoint for Poshmark search: result title, asking price, brand, size. (E-commerce)
+- [Publix Scraper API](https://chocodata.com/scraper-api/publix): Scrape Publix search via the Universal Web Scraper API; fields like product name, brand, price, unit/size. (E-commerce)
+- [Rakuten Scraper API](https://chocodata.com/scraper-api/rakuten): Dedicated structured-JSON endpoint for Rakuten search: result title, price (JPY), shop name, Rakuten points earned. (E-commerce)
+- [Sainsbury's Scraper API](https://chocodata.com/scraper-api/sainsbury-s): Scrape Sainsbury's search via the Universal Web Scraper API; fields like product name, price (GBP), price per unit, Nectar offer flag. (E-commerce)
+- [Sephora Scraper API](https://chocodata.com/scraper-api/sephora): Scrape Sephora search via the Universal Web Scraper API; fields like product name, brand, price, shade or size options. (E-commerce)
+- [Shein Scraper API](https://chocodata.com/scraper-api/shein): Scrape Shein search via the Universal Web Scraper API; fields like product title, price, discount percentage, rating. (E-commerce)
+- [Shopee Scraper API](https://chocodata.com/scraper-api/shopee): Scrape Shopee search via the Universal Web Scraper API; fields like product title, price, discount percentage, sold count. (E-commerce)
+- [Staples Scraper API](https://chocodata.com/scraper-api/staples): Scrape Staples search via the Universal Web Scraper API; fields like product name, item number, price, unit price (per pack). (E-commerce)
+- [StockX Scraper API](https://chocodata.com/scraper-api/stockx): Scrape StockX search via the Universal Web Scraper API; fields like product name, lowest ask price, last sale price, price change percentage. (E-commerce)
+- [Taobao Scraper API](https://chocodata.com/scraper-api/taobao): Scrape Taobao search via the Universal Web Scraper API; fields like item title, price, monthly sales count, shop name. (E-commerce)
+- [Target Scraper API](https://chocodata.com/scraper-api/target): Scrape Target search via the Universal Web Scraper API; fields like product title, price, TCIN (Target item ID), star rating. (E-commerce)
+- [Temu Scraper API](https://chocodata.com/scraper-api/temu): Scrape Temu search via the Universal Web Scraper API; fields like product title, price, items sold count, star rating. (E-commerce)
+- [Tesco Scraper API](https://chocodata.com/scraper-api/tesco): Dedicated structured-JSON endpoint for Tesco search: result title, price (GBP), unit price (per kg / litre), Clubcard / promo price. (E-commerce)
+- [Tokopedia Scraper API](https://chocodata.com/scraper-api/tokopedia): Scrape Tokopedia search via the Universal Web Scraper API; fields like product name, price, store name, shop location. (E-commerce)
+- [Trendyol Scraper API](https://chocodata.com/scraper-api/trendyol): Scrape Trendyol search via the Universal Web Scraper API; fields like product title, brand, price, discounted price. (E-commerce)
+- [Vestiaire Scraper API](https://chocodata.com/scraper-api/vestiaire): Scrape Vestiaire search via the Universal Web Scraper API; fields like brand, item title, price, condition grade. (E-commerce)
+- [Vinted Scraper API](https://chocodata.com/scraper-api/vinted): Scrape Vinted search via the Universal Web Scraper API; fields like item title, brand, price, size. (E-commerce)
+- [Walmart Best Sellers Scraper API](https://chocodata.com/scraper-api/walmart-best-sellers): Dedicated structured-JSON endpoint for Walmart bestsellers. (E-commerce)
+- [Walmart Product Scraper API](https://chocodata.com/scraper-api/walmart-product): Dedicated structured-JSON endpoint for Walmart product: product title, price, item ID, seller (Walmart / marketplace). (E-commerce)
+- [Walmart Relatedqueries Scraper API](https://chocodata.com/scraper-api/walmart-relatedqueries): Dedicated structured-JSON endpoint for Walmart relatedqueries. (E-commerce)
+- [Walmart Scraper API](https://chocodata.com/scraper-api/walmart): Dedicated structured-JSON endpoint for Walmart search: result title, price, seller (Walmart / marketplace), sponsored flag. (E-commerce)
+- [Wayfair Scraper API](https://chocodata.com/scraper-api/wayfair): Scrape Wayfair search via the Universal Web Scraper API; fields like product name, brand, price, list price. (E-commerce)
+- [Wish Scraper API](https://chocodata.com/scraper-api/wish): Scrape Wish search via the Universal Web Scraper API; fields like product title, price, shipping price, star rating. (E-commerce)
+- [Worten Scraper API](https://chocodata.com/scraper-api/worten): Scrape Worten search via the Universal Web Scraper API; fields like product name, brand, price, previous price. (E-commerce)
+- [Zalando Scraper API](https://chocodata.com/scraper-api/zalando): Dedicated structured-JSON endpoint for Zalando search: result title, brand, price, discount flag. (E-commerce)
+- [Zappos Scraper API](https://chocodata.com/scraper-api/zappos): Dedicated structured-JSON endpoint for Zappos search: result title, brand, price, star rating. (E-commerce)
+- [Benzinga Scraper API](https://chocodata.com/scraper-api/benzinga): Scrape Benzinga search via the Universal Web Scraper API; fields like headline, article body, publish timestamp, author. (Finance & Crypto)
+- [Bitstamp Scraper API](https://chocodata.com/scraper-api/bitstamp): Scrape Bitstamp search via the Universal Web Scraper API; fields like trading pair, last price, 24h high/low, 24h volume. (Finance & Crypto)
+- [Bybit Scraper API](https://chocodata.com/scraper-api/bybit): Scrape Bybit search via the Universal Web Scraper API; fields like trading pair, last price, 24h change, 24h volume. (Finance & Crypto)
+- [Capitol Trades Scraper API](https://chocodata.com/scraper-api/capitol-trades): Scrape Capitol Trades search via the Universal Web Scraper API; fields like politician name, traded ticker, transaction type, trade size range. (Finance &...
+- [Coinbase Scraper API](https://chocodata.com/scraper-api/coinbase): Scrape Coinbase search via the Universal Web Scraper API; fields like asset name, current price, market cap, 24h volume. (Finance & Crypto)
+- [CoinGecko Scraper API](https://chocodata.com/scraper-api/coingecko): Dedicated structured-JSON endpoint for CoinGecko search: result coin name, symbol, market cap rank, current price. (Finance & Crypto)
+- [CoinMarketCap Scraper API](https://chocodata.com/scraper-api/coinmarketcap): Dedicated structured-JSON endpoint for CoinMarketCap search: result coin name, symbol, market cap rank, current price. (Finance & Crypto)
+- [Crunchbase Scraper API](https://chocodata.com/scraper-api/crunchbase): Scrape Crunchbase search via the Universal Web Scraper API; fields like company name, description, headquarters, funding rounds. (Finance & Crypto)
+- [Finviz Quote Scraper API](https://chocodata.com/scraper-api/finviz-quote): Scrape Finviz quote via the Universal Web Scraper API; fields like ticker, current price, P/E ratio, market cap. (Finance & Crypto)
+- [Gateio Scraper API](https://chocodata.com/scraper-api/gateio): Dedicated structured-JSON endpoint for Gateio search: pair symbol, last price, 24h change percent, 24h volume. (Finance & Crypto)
+- [Kraken Scraper API](https://chocodata.com/scraper-api/kraken): Scrape Kraken search via the Universal Web Scraper API; fields like trading pair, last price, 24h change, 24h volume. (Finance & Crypto)
+- [KuCoin Scraper API](https://chocodata.com/scraper-api/kucoin): Dedicated structured-JSON endpoint for KuCoin search: pair symbol, last price, 24h change %, 24h volume. (Finance & Crypto)
+- [Morningstar Scraper API](https://chocodata.com/scraper-api/morningstar): Scrape Morningstar search via the Universal Web Scraper API; fields like security name, Morningstar rating, current price, expense ratio. (Finance & Crypto)
+- [Nasdaq Scraper API](https://chocodata.com/scraper-api/nasdaq): Scrape Nasdaq search via the Universal Web Scraper API; fields like ticker, last sale price, net change, market cap. (Finance & Crypto)
+- [OKX Scraper API](https://chocodata.com/scraper-api/okx): Dedicated structured-JSON endpoint for OKX search: pair symbol, last price, 24h change %, 24h volume. (Finance & Crypto)
+- [Pitchbook Scraper API](https://chocodata.com/scraper-api/pitchbook): Scrape Pitchbook search via the Universal Web Scraper API; fields like company name, description, industry, latest deal type. (Finance & Crypto)
+- [Polymarket Scraper API](https://chocodata.com/scraper-api/polymarket): Scrape Polymarket search via the Universal Web Scraper API; fields like market question, outcome prices, implied probability, total volume. (Finance & Crypto)
+- [SEC EDGAR Scraper API](https://chocodata.com/scraper-api/sec-edgar): Scrape SEC EDGAR search via the Universal Web Scraper API; fields like company name, CIK number, filing type, filing date. (Finance & Crypto)
+- [Seekingalpha Scraper API](https://chocodata.com/scraper-api/seekingalpha): Scrape Seekingalpha search via the Universal Web Scraper API; fields like article titles, author names, publish dates, covered tickers. (Finance & Crypto)
+- [Stocktwits Scraper API](https://chocodata.com/scraper-api/stocktwits): Scrape Stocktwits search via the Universal Web Scraper API; fields like message text, author handle, post timestamp, bullish/bearish tag. (Finance & Crypto)
+- [TradingView Quote Scraper API](https://chocodata.com/scraper-api/tradingview-quote): Scrape TradingView quote via the Universal Web Scraper API; fields like symbol, last price, daily change percent, market cap. (Finance & Crypto)
+- [Yahoo Finance Scraper API](https://chocodata.com/scraper-api/yahoo-finance): Scrape Yahoo Finance search via the Universal Web Scraper API; fields like ticker symbol, regular market price, previous close, market cap. (Finance & Crypto)
+- [Doordash Scraper API](https://chocodata.com/scraper-api/doordash): Scrape Doordash search via the Universal Web Scraper API; fields like store name, cuisine type, star rating, delivery fee. (Food)
+- [Open Food Facts Scraper API](https://chocodata.com/scraper-api/open-food-facts): Scrape Open Food Facts search via the Universal Web Scraper API; fields like product name, barcode (EAN), brand, ingredients list. (Food)
+- [Tabelog Scraper API](https://chocodata.com/scraper-api/tabelog): Dedicated structured-JSON endpoint for Tabelog search: restaurant name, Tabelog rating, cuisine genre, price range. (Food)
+- [TheCocktailDB Scraper API](https://chocodata.com/scraper-api/thecocktaildb): Dedicated structured-JSON endpoint for TheCocktailDB search: drink name, drink ID, category, alcoholic flag. (Food)
+- [TheMealDB Scraper API](https://chocodata.com/scraper-api/themealdb): Dedicated structured-JSON endpoint for TheMealDB search: meal name, meal ID (idMeal), category, cuisine area. (Food)
+- [Arbeitnow Scraper API](https://chocodata.com/scraper-api/arbeitnow): Dedicated structured-JSON endpoint for Arbeitnow search: result title, company name, location, remote flag. (Jobs)
+- [Careerbuilder Scraper API](https://chocodata.com/scraper-api/careerbuilder): Scrape Careerbuilder search via the Universal Web Scraper API; fields like job title, company name, location, pay range. (Jobs)
+- [Dice Scraper API](https://chocodata.com/scraper-api/dice): Scrape Dice search via the Universal Web Scraper API; fields like job title, company name, location, required skills. (Jobs)
+- [Glassdoor Scraper API](https://chocodata.com/scraper-api/glassdoor): Scrape Glassdoor search via the Universal Web Scraper API; fields like job title, company name, location, company rating. (Jobs)
+- [Himalayas Scraper API](https://chocodata.com/scraper-api/himalayas): Scrape Himalayas search via the Universal Web Scraper API; fields like job title, company name, remote region, salary range. (Jobs)
+- [Indeed Scraper API](https://chocodata.com/scraper-api/indeed): Scrape Indeed search via the Universal Web Scraper API; fields like job title, company name, location, salary estimate. (Jobs)
+- [Jobicy Scraper API](https://chocodata.com/scraper-api/jobicy): Dedicated structured-JSON endpoint for Jobicy search: result title, company name, job type, candidate region. (Jobs)
+- [Jooble Scraper API](https://chocodata.com/scraper-api/jooble): Scrape Jooble search via the Universal Web Scraper API; fields like job title, company name, location, salary. (Jobs)
+- [LinkedIn Job Scraper API](https://chocodata.com/scraper-api/linkedin-job): Dedicated structured-JSON endpoint for LinkedIn job. (Jobs)
+- [LinkedIn Jobsearch Scraper API](https://chocodata.com/scraper-api/linkedin-jobsearch): Dedicated structured-JSON endpoint for LinkedIn jobsearch. (Jobs)
+- [LinkedIn Scraper API](https://chocodata.com/scraper-api/linkedin): Dedicated structured-JSON endpoint for LinkedIn search: job title, company name, location, posting date. (Jobs)
+- [Monster Scraper API](https://chocodata.com/scraper-api/monster): Scrape Monster search via the Universal Web Scraper API; fields like job title, company name, location, job summary. (Jobs)
+- [Naukri Scraper API](https://chocodata.com/scraper-api/naukri): Scrape Naukri search via the Universal Web Scraper API; fields like job title, company name, location, experience required. (Jobs)
+- [Reed Scraper API](https://chocodata.com/scraper-api/reed): Dedicated structured-JSON endpoint for Reed search: result title, employer/recruiter, location, salary range. (Jobs)
+- [RemoteOK Scraper API](https://chocodata.com/scraper-api/remoteok): Dedicated structured-JSON endpoint for RemoteOK search: result title, company name, tags, salary range. (Jobs)
+- [Remotive Scraper API](https://chocodata.com/scraper-api/remotive): Dedicated structured-JSON endpoint for Remotive search: result title, company name, category, candidate region. (Jobs)
+- [Seek Scraper API](https://chocodata.com/scraper-api/seek): Scrape Seek search via the Universal Web Scraper API; fields like job title, company name, location, job classification. (Jobs)
+- [Stepstone Scraper API](https://chocodata.com/scraper-api/stepstone): Scrape Stepstone search via the Universal Web Scraper API; fields like job title, company name, location, employment type. (Jobs)
+- [Themuse Scraper API](https://chocodata.com/scraper-api/themuse): Scrape Themuse search via the Universal Web Scraper API; fields like job title, company name, location, job category. (Jobs)
+- [Totaljobs Scraper API](https://chocodata.com/scraper-api/totaljobs): Scrape Totaljobs search via the Universal Web Scraper API; fields like job title, company name, location, salary range. (Jobs)
+- [We Work Remotely Scraper API](https://chocodata.com/scraper-api/we-work-remotely): Scrape We Work Remotely search via the Universal Web Scraper API; fields like job title, company name, job category, region restriction. (Jobs)
+- [Wellfound Scraper API](https://chocodata.com/scraper-api/wellfound): Scrape Wellfound search via the Universal Web Scraper API; fields like job title, company name, company stage, location. (Jobs)
+- [Workable Scraper API](https://chocodata.com/scraper-api/workable): Scrape Workable search via the Universal Web Scraper API; fields like job title, department, location, workplace type. (Jobs)
+- [Workingnomads Scraper API](https://chocodata.com/scraper-api/workingnomads): Dedicated structured-JSON endpoint for Workingnomads search: result title, company name, category, region eligibility. (Jobs)
+- [ZipRecruiter Scraper API](https://chocodata.com/scraper-api/ziprecruiter): Scrape ZipRecruiter search via the Universal Web Scraper API; fields like job title, company name, location, estimated salary. (Jobs)
+- [Archive.org Scraper API](https://chocodata.com/scraper-api/archive-org): Scrape Archive.org search via the Universal Web Scraper API; fields like item title, creator, date, media type. (Knowledge & Academic)
+- [Arxiv Scraper API](https://chocodata.com/scraper-api/arxiv): Scrape Arxiv search via the Universal Web Scraper API; fields like paper title, authors, abstract, subject category. (Knowledge & Academic)
+- [Crossref Scraper API](https://chocodata.com/scraper-api/crossref): Dedicated structured-JSON endpoint for Crossref search: DOI, title, authors, container title. (Knowledge & Academic)
+- [DOAJ Scraper API](https://chocodata.com/scraper-api/doaj): Dedicated structured-JSON endpoint for DOAJ search: article title, authors, journal title, ISSN. (Knowledge & Academic)
+- [Open Library Scraper API](https://chocodata.com/scraper-api/open-library): Dedicated structured-JSON endpoint for Open Library search: work title, author names, first publish year, edition count. (Knowledge & Academic)
+- [OpenAlex Scraper API](https://chocodata.com/scraper-api/openalex): Dedicated structured-JSON endpoint for OpenAlex search: title, authors with affiliations, publication year, host venue. (Knowledge & Academic)
+- [Plos Scraper API](https://chocodata.com/scraper-api/plos): Scrape Plos search via the Universal Web Scraper API; fields like article title, authors, abstract, DOI. (Knowledge & Academic)
+- [Pubmed Scraper API](https://chocodata.com/scraper-api/pubmed): Scrape Pubmed search via the Universal Web Scraper API; fields like article title, authors, journal name, publication date. (Knowledge & Academic)
+- [REST Countries Scraper API](https://chocodata.com/scraper-api/rest-countries): Dedicated structured-JSON endpoint for REST Countries search: common and official name, country codes (cca2/cca3), capital, region. (Knowledge & Academic)
+- [Semanticscholar Scraper API](https://chocodata.com/scraper-api/semanticscholar): Scrape Semanticscholar search via the Universal Web Scraper API; fields like paper title, authors, abstract, citation count. (Knowledge & Academic)
+- [Wikidata Scraper API](https://chocodata.com/scraper-api/wikidata): Dedicated structured-JSON endpoint for Wikidata search: entity ID (Q-number), label, description, matched aliases. (Knowledge & Academic)
+- [Wiktionary Scraper API](https://chocodata.com/scraper-api/wiktionary): Scrape Wiktionary search via the Universal Web Scraper API; fields like headword, part of speech, definitions, pronunciation. (Knowledge & Academic)
+- [Zenodo Scraper API](https://chocodata.com/scraper-api/zenodo): Dedicated structured-JSON endpoint for Zenodo search: record title, creators, resource type, DOI. (Knowledge & Academic)
+- [Craigslist Scraper API](https://chocodata.com/scraper-api/craigslist): Dedicated structured-JSON endpoint for Craigslist search: title, price, post date, neighborhood. (Local & Directories)
+- [Gelbe Seiten Scraper API](https://chocodata.com/scraper-api/gelbe-seiten): Scrape Gelbe Seiten search via the Universal Web Scraper API; fields like business name, address, phone number, business category. (Local & Directories)
+- [Gumtree Scraper API](https://chocodata.com/scraper-api/gumtree): Dedicated structured-JSON endpoint for Gumtree search: result title, price, location, category. (Local & Directories)
+- [Kleinanzeigen Scraper API](https://chocodata.com/scraper-api/kleinanzeigen): Scrape Kleinanzeigen search via the Universal Web Scraper API; fields like listing title, price, location, category. (Local & Directories)
+- [Nominatim Scraper API](https://chocodata.com/scraper-api/nominatim): Dedicated structured-JSON endpoint for Nominatim search: display name, latitude and longitude, OSM type and ID, place class and type. (Local & Directories)
+- [Aljazeera Scraper API](https://chocodata.com/scraper-api/aljazeera): Scrape Aljazeera search via the Universal Web Scraper API; fields like headline, article body text, author byline, publish date. (News & Media)
+- [Allmusic Scraper API](https://chocodata.com/scraper-api/allmusic): Scrape Allmusic search via the Universal Web Scraper API; fields like artist or album name, release date, genre and style tags, track listing. (News & Media)
+- [AP News Scraper API](https://chocodata.com/scraper-api/ap-news): Scrape AP News search via the Universal Web Scraper API; fields like headline, byline, publish timestamp, article body. (News & Media)
+- [Apple Music Scraper API](https://chocodata.com/scraper-api/apple-music): Dedicated structured-JSON endpoint for Apple Music search: result title, artist, content type, album context. (News & Media)
+- [Audible Scraper API](https://chocodata.com/scraper-api/audible): Scrape Audible search via the Universal Web Scraper API; fields like title, author, narrator, runtime/length. (News & Media)
+- [Audiomack Scraper API](https://chocodata.com/scraper-api/audiomack): Scrape Audiomack search via the Universal Web Scraper API; fields like track title, artist name, album/playlist, genre. (News & Media)
+- [BBC Scraper API](https://chocodata.com/scraper-api/bbc): Scrape BBC search via the Universal Web Scraper API; fields like headline, article body text, byline/author, publish timestamp. (News & Media)
+- [Bilibili Scraper API](https://chocodata.com/scraper-api/bilibili): Scrape Bilibili search via the Universal Web Scraper API; fields like video title, uploader (UP) name, view count, like/coin count. (News & Media)
+- [Bing Image Scraper API](https://chocodata.com/scraper-api/bing-image): Scrape Bing images via the Universal Web Scraper API; fields like image thumbnail URL, full-resolution source URL, source page URL, image title/alt text. (News...
+- [Bing News Scraper API](https://chocodata.com/scraper-api/bing-news): Scrape Bing News search via the Universal Web Scraper API; fields like headline, source publisher, snippet/summary, publish time. (News & Media)
+- [Bing Videos Scraper API](https://chocodata.com/scraper-api/bing-videos): Dedicated structured-JSON endpoint for Bing videos. (News & Media)
+- [Cnbc Scraper API](https://chocodata.com/scraper-api/cnbc): Scrape Cnbc search via the Universal Web Scraper API; fields like headline, article body text, author byline, publish timestamp. (News & Media)
+- [Crunchyroll Scraper API](https://chocodata.com/scraper-api/crunchyroll): Scrape Crunchyroll search via the Universal Web Scraper API; fields like series title, genre tags, episode count, synopsis. (News & Media)
+- [Deezer Scraper API](https://chocodata.com/scraper-api/deezer): Scrape Deezer search via the Universal Web Scraper API; fields like track title, artist name, album title, duration. (News & Media)
+- [Engadget Scraper API](https://chocodata.com/scraper-api/engadget): Scrape Engadget search via the Universal Web Scraper API; fields like headline, article body text, author byline, publish date. (News & Media)
+- [Flickr Scraper API](https://chocodata.com/scraper-api/flickr): Scrape Flickr search via the Universal Web Scraper API; fields like image URL, photo title, photographer/owner, tags. (News & Media)
+- [Genius Scraper API](https://chocodata.com/scraper-api/genius): Scrape Genius search via the Universal Web Scraper API; fields like song title, artist name, full lyrics, songwriter credits. (News & Media)
+- [Google News Scraper API](https://chocodata.com/scraper-api/google-news): Scrape Google News search via the Universal Web Scraper API; fields like result headline, publisher name, publish time, story cluster grouping. (News & Media)
+- [Guardian Scraper API](https://chocodata.com/scraper-api/guardian): Scrape Guardian search via the Universal Web Scraper API; fields like headline, standfirst summary, author byline, publication date. (News & Media)
+- [IMDb Scraper API](https://chocodata.com/scraper-api/imdb): Scrape IMDb search via the Universal Web Scraper API; fields like title name, IMDb title ID (tt), release year, result type (movie/TV/person). (News & Media)
+- [Itunes Scraper API](https://chocodata.com/scraper-api/itunes): Scrape Itunes search via the Universal Web Scraper API; fields like title, artist or author, genre, release date. (News & Media)
+- [Kitsu Scraper API](https://chocodata.com/scraper-api/kitsu): Dedicated structured-JSON endpoint for Kitsu search: result title, media type, slug/URL, average rating. (News & Media)
+- [Last.fm Scraper API](https://chocodata.com/scraper-api/last-fm): Scrape Last.fm search via the Universal Web Scraper API; fields like artist or track name, listener count, total play count, user-applied tags. (News & Media)
+- [Letterboxd Scraper API](https://chocodata.com/scraper-api/letterboxd): Scrape Letterboxd search via the Universal Web Scraper API; fields like film title, release year, average rating, review text. (News & Media)
+- [Medium Scraper API](https://chocodata.com/scraper-api/medium): Scrape Medium search via the Universal Web Scraper API; fields like article title, author name, publish date, estimated read time. (News & Media)
+- [Metacritic Scraper API](https://chocodata.com/scraper-api/metacritic): Scrape Metacritic search via the Universal Web Scraper API; fields like title, Metascore, user score, critic review snippets. (News & Media)
+- [MusicBrainz Scraper API](https://chocodata.com/scraper-api/musicbrainz): Dedicated structured-JSON endpoint for MusicBrainz search: result name, entity type, MBID, artist credit. (News & Media)
+- [MyAnimeList Scraper API](https://chocodata.com/scraper-api/myanimelist): Dedicated structured-JSON endpoint for MyAnimeList search: result title, media type, MAL ID/URL, episode count. (News & Media)
+- [NPR Scraper API](https://chocodata.com/scraper-api/npr): Scrape NPR search via the Universal Web Scraper API; fields like headline, author or reporter, publish date, article body text. (News & Media)
+- [Rotten Tomatoes Scraper API](https://chocodata.com/scraper-api/rotten-tomatoes): Scrape Rotten Tomatoes search via the Universal Web Scraper API; fields like title, Tomatometer score, Audience Score, critic consensus text. (News & Media)
+- [Soundcloud Scraper API](https://chocodata.com/scraper-api/soundcloud): Scrape Soundcloud search via the Universal Web Scraper API; fields like track title, artist name, play count, like and repost counts. (News & Media)
+- [Substack Scraper API](https://chocodata.com/scraper-api/substack): Scrape Substack search via the Universal Web Scraper API; fields like post title, post URL, publish date, post excerpt. (News & Media)
+- [TechCrunch Scraper API](https://chocodata.com/scraper-api/techcrunch): Scrape TechCrunch search via the Universal Web Scraper API; fields like headline, article body, author name, publish date. (News & Media)
+- [The Verge Scraper API](https://chocodata.com/scraper-api/the-verge): Scrape The Verge search via the Universal Web Scraper API; fields like title, article text, author, publish timestamp. (News & Media)
+- [TVmaze Scraper API](https://chocodata.com/scraper-api/tvmaze): Scrape TVmaze search via the Universal Web Scraper API; fields like show title, air status, network or web channel, genres. (News & Media)
+- [Twitch Scraper API](https://chocodata.com/scraper-api/twitch): Scrape Twitch search via the Universal Web Scraper API; fields like stream title, streamer name, game/category, live viewer count. (News & Media)
+- [Unsplash Scraper API](https://chocodata.com/scraper-api/unsplash): Scrape Unsplash search via the Universal Web Scraper API; fields like image URL, photo title, photographer name, tags/keywords. (News & Media)
+- [Wordpress Scraper API](https://chocodata.com/scraper-api/wordpress): Scrape Wordpress search via the Universal Web Scraper API; fields like post title, post content, author name, publish date. (News & Media)
+- [WSJ Scraper API](https://chocodata.com/scraper-api/wsj): Scrape WSJ search via the Universal Web Scraper API; fields like headline, summary/deck, author byline, publish date. (News & Media)
+- [Apple App Store Scraper API](https://chocodata.com/scraper-api/apple-app-store): Dedicated structured-JSON endpoint for Apple App Store search: app name, developer name, average rating, rating count. (Other)
+- [Behance Scraper API](https://chocodata.com/scraper-api/behance): Scrape Behance search via the Universal Web Scraper API; fields like project title, creator name, creative fields/tags, appreciations count. (Other)
+- [Coursera Scraper API](https://chocodata.com/scraper-api/coursera): Scrape Coursera search via the Universal Web Scraper API; fields like course title, provider/university, rating, skill level. (Other)
+- [Edx Scraper API](https://chocodata.com/scraper-api/edx): Scrape Edx search via the Universal Web Scraper API; fields like course title, partner institution, subject, course level. (Other)
+- [Google Play Store Scraper API](https://chocodata.com/scraper-api/google-play-store): Dedicated structured-JSON endpoint for Google Play Store search: app title, developer name, average rating, install count. (Other)
+- [Opensea Scraper API](https://chocodata.com/scraper-api/opensea): Scrape Opensea search via the Universal Web Scraper API; fields like item name, collection name, listing price, traits/attributes. (Other)
+- [Product Hunt Scraper API](https://chocodata.com/scraper-api/product-hunt): Scrape Product Hunt search via the Universal Web Scraper API; fields like product name, tagline, upvote count, maker/team. (Other)
+- [Steam Scraper API](https://chocodata.com/scraper-api/steam): Scrape Steam search via the Universal Web Scraper API; fields like game title, price, discount percentage, release date. (Other)
+- [Udemy Scraper API](https://chocodata.com/scraper-api/udemy): Scrape Udemy search via the Universal Web Scraper API; fields like course title, instructor name, rating, price. (Other)
+- [Walmart Filters Scraper API](https://chocodata.com/scraper-api/walmart-filters): Dedicated structured-JSON endpoint for Walmart filters. (Other)
+- [Domain Scraper API](https://chocodata.com/scraper-api/domain): Scrape Domain search via the Universal Web Scraper API; fields like listing title and URL, price or price guide, suburb and address, bedrooms and bathrooms....
+- [Fotocasa Scraper API](https://chocodata.com/scraper-api/fotocasa): Scrape Fotocasa search via the Universal Web Scraper API; fields like listing title and URL, price, neighborhood or municipality, surface area. (Real Estate)
+- [Idealista Scraper API](https://chocodata.com/scraper-api/idealista): Scrape Idealista search via the Universal Web Scraper API; fields like price, title and listing URL, location or district, surface area in square meters. (Real...
+- [Immobilienscout24 Scraper API](https://chocodata.com/scraper-api/immobilienscout24): Scrape Immobilienscout24 search via the Universal Web Scraper API; fields like price (Kaufpreis or Kaltmiete), address or district, living area in square...
+- [Magicbricks Scraper API](https://chocodata.com/scraper-api/magicbricks): Scrape Magicbricks search via the Universal Web Scraper API; fields like listing title and URL, price, locality and city, BHK configuration. (Real Estate)
+- [MLS Scraper API](https://chocodata.com/scraper-api/mls): Scrape MLS search via the Universal Web Scraper API; fields like listing price, property address, city and state, bedrooms and bathrooms. (Real Estate)
+- [Realtor.com Scraper API](https://chocodata.com/scraper-api/realtor-com): Scrape Realtor.com search via the Universal Web Scraper API; fields like list price, full address, bedrooms and bathrooms, square footage and lot size. (Real...
+- [Redfin Scraper API](https://chocodata.com/scraper-api/redfin): Dedicated structured-JSON endpoint for Redfin search: address, price, beds and baths, square footage. (Real Estate)
+- [Rightmove Scraper API](https://chocodata.com/scraper-api/rightmove): Scrape Rightmove search via the Universal Web Scraper API; fields like listing title and URL, asking price, address or outcode, bedrooms. (Real Estate)
+- [Seloger Scraper API](https://chocodata.com/scraper-api/seloger): Scrape Seloger search via the Universal Web Scraper API; fields like price, city and arrondissement, surface area in square meters, number of rooms (pieces)....
+- [Streeteasy Scraper API](https://chocodata.com/scraper-api/streeteasy): Scrape Streeteasy search via the Universal Web Scraper API; fields like listing title and URL, price, neighborhood, bedrooms and bathrooms. (Real Estate)
+- [Trulia Scraper API](https://chocodata.com/scraper-api/trulia): Dedicated structured-JSON endpoint for Trulia search: result address, list price, beds and baths, square footage. (Real Estate)
+- [Zillow Scraper API](https://chocodata.com/scraper-api/zillow): Dedicated structured-JSON endpoint for Zillow search: result address, list price, beds and baths, square footage. (Real Estate)
+- [Zoopla Scraper API](https://chocodata.com/scraper-api/zoopla): Scrape Zoopla search via the Universal Web Scraper API; fields like listing title and URL, asking price, address or area, bedrooms and bathrooms. (Real Estate)
+- [Amazon Reviews Scraper API](https://chocodata.com/scraper-api/amazon-reviews): Scrape Amazon reviews via the Universal Web Scraper API; fields like review title, review body, star rating, reviewer name. (Reviews)
+- [BBB Scraper API](https://chocodata.com/scraper-api/bbb): Scrape BBB search via the Universal Web Scraper API; fields like business name, BBB rating, accreditation status, customer review count. (Reviews)
+- [Capterra Scraper API](https://chocodata.com/scraper-api/capterra): Scrape Capterra search via the Universal Web Scraper API; fields like product name, overall rating, review count, review text. (Reviews)
+- [G2 Scraper API](https://chocodata.com/scraper-api/g2): Scrape G2 search via the Universal Web Scraper API; fields like product name, star rating, review count, category rank. (Reviews)
+- [Trustpilot Scraper API](https://chocodata.com/scraper-api/trustpilot): Scrape Trustpilot search via the Universal Web Scraper API; fields like company name, TrustScore, review count, review text. (Reviews)
+- [Walmart Reviews Scraper API](https://chocodata.com/scraper-api/walmart-reviews): Dedicated structured-JSON endpoint for Walmart reviews. (Reviews)
+- [Yellow Pages Scraper API](https://chocodata.com/scraper-api/yellow-pages): Scrape Yellow Pages search via the Universal Web Scraper API; fields like business name, address, phone number, business category. (Reviews)
+- [Yelp Scraper API](https://chocodata.com/scraper-api/yelp): Scrape Yelp search via the Universal Web Scraper API; fields like business name, star rating, review count, price level. (Reviews)
+- [Baidu Scraper API](https://chocodata.com/scraper-api/baidu): Dedicated structured-JSON endpoint for Baidu search: result title, result URL, snippet, ranking position. (Search Engines)
+- [Bing Ads Scraper API](https://chocodata.com/scraper-api/bing-ads): Scrape Bing Ads search via the Universal Web Scraper API; fields like ad headline, display URL, ad description, advertiser. (Search Engines)
+- [Bing Maps Scraper API](https://chocodata.com/scraper-api/bing-maps): Scrape Bing Maps search via the Universal Web Scraper API; fields like place name, address, phone number, category. (Search Engines)
+- [Bing Scraper API](https://chocodata.com/scraper-api/bing): Dedicated structured-JSON endpoint for Bing search: result title, result URL, snippet, ranking position. (Search Engines)
+- [Brave Search Scraper API](https://chocodata.com/scraper-api/brave-search): Scrape Brave Search search via the Universal Web Scraper API; fields like result title, result URL, snippet, ranking position. (Search Engines)
+- [DuckDuckGo Scraper API](https://chocodata.com/scraper-api/duckduckgo): Dedicated structured-JSON endpoint for DuckDuckGo search: result title, result URL, snippet, ranking position. (Search Engines)
+- [Ecosia Scraper API](https://chocodata.com/scraper-api/ecosia): Scrape Ecosia search via the Universal Web Scraper API; fields like result title, result URL, snippet, ranking position. (Search Engines)
+- [Google Ads Scraper API](https://chocodata.com/scraper-api/google-ads): Scrape Google Ads search via the Universal Web Scraper API; fields like ad headline, display URL, ad description, advertiser. (Search Engines)
+- [Google Ads Transparency Center Scraper API](https://chocodata.com/scraper-api/google-ads-transparency-center): Scrape Google Ads Transparency Center search via the Universal Web Scraper API; fields like advertiser name, verified advertiser ID, ad creative preview, ad...
+- [Google AI Mode Scraper API](https://chocodata.com/scraper-api/google-ai-mode): Scrape Google AI Mode search via the Universal Web Scraper API; fields like AI answer text, cited source titles, cited source URLs, follow-up questions....
+- [Google AI Overviews Scraper API](https://chocodata.com/scraper-api/google-ai-overviews): Scrape Google AI Overviews search via the Universal Web Scraper API; fields like overview summary text, cited source titles, cited source URLs, linked...
+- [Google Autocomplete Scraper API](https://chocodata.com/scraper-api/google-autocomplete): Scrape Google Autocomplete search via the Universal Web Scraper API; fields like seed query, suggested completion text, suggestion rank order,...
+- [Google Events Scraper API](https://chocodata.com/scraper-api/google-events): Scrape Google Events search via the Universal Web Scraper API; fields like event title, date and time, venue name, venue address. (Search Engines)
+- [Google Finance Scraper API](https://chocodata.com/scraper-api/google-finance): Scrape Google Finance search via the Universal Web Scraper API; fields like ticker symbol, current price, price change and percent, market cap. (Search Engines)
+- [Google Flights Scraper API](https://chocodata.com/scraper-api/google-flights): Scrape Google Flights search via the Universal Web Scraper API; fields like airline/carrier, departure and arrival times, total price, number of stops. (Search...
+- [Google Forums Scraper API](https://chocodata.com/scraper-api/google-forums): Scrape Google Forums search via the Universal Web Scraper API; fields like thread title, source forum/domain, thread snippet, post or reply count. (Search...
+- [Google Hotels Scraper API](https://chocodata.com/scraper-api/google-hotels): Scrape Google Hotels search via the Universal Web Scraper API; fields like hotel name, nightly price, star class, guest review score. (Search Engines)
+- [Google Images Scraper API](https://chocodata.com/scraper-api/google-images): Scrape Google Images search via the Universal Web Scraper API; fields like image thumbnail URL, full-size image URL, source page URL, image title/alt text....
+- [Google Jobs Scraper API](https://chocodata.com/scraper-api/google-jobs): Scrape Google Jobs search via the Universal Web Scraper API; fields like job title, employer name, location, posting source/board. (Search Engines)
+- [Google Knowledge Graph Scraper API](https://chocodata.com/scraper-api/google-knowledge-graph): Scrape Google Knowledge Graph search via the Universal Web Scraper API; fields like entity name, entity type/category, summary description, key attributes...
+- [Google Lens Scraper API](https://chocodata.com/scraper-api/google-lens): Scrape Google Lens search via the Universal Web Scraper API; fields like matched entity/label, visually similar image URLs, source page URLs, product or object...
+- [Google Local Search Scraper API](https://chocodata.com/scraper-api/google-local-search): Scrape Google Local Search search via the Universal Web Scraper API; fields like business name, star rating, review count, address. (Search Engines)
+- [Google Maps Scraper API](https://chocodata.com/scraper-api/google-maps): Scrape Google Maps search via the Universal Web Scraper API; fields like place name, full address, latitude/longitude, star rating. (Search Engines)
+- [Google Patents Scraper API](https://chocodata.com/scraper-api/google-patents): Scrape Google Patents search via the Universal Web Scraper API; fields like patent title, patent/publication number, inventor(s), assignee. (Search Engines)
+- [Google Recipes Scraper API](https://chocodata.com/scraper-api/google-recipes): Scrape Google Recipes search via the Universal Web Scraper API; fields like recipe title, source site/domain, star rating, cook/prep time. (Search Engines)
+- [Google Related Questions Scraper API](https://chocodata.com/scraper-api/google-related-questions): Scrape Google Related Questions search via the Universal Web Scraper API; fields like related question text, answer snippet, source page title, source URL....
+- [Google Reviews Scraper API](https://chocodata.com/scraper-api/google-reviews): Scrape Google Reviews search via the Universal Web Scraper API; fields like overall star rating, total review count, individual review text, reviewer name....
+- [Google Scholar Scraper API](https://chocodata.com/scraper-api/google-scholar): Scrape Google Scholar search via the Universal Web Scraper API; fields like paper title, authors, publication venue, year. (Search Engines)
+- [Google Scraper API](https://chocodata.com/scraper-api/google): Scrape Google search via the Universal Web Scraper API; fields like result title, result URL, snippet, ranking position. (Search Engines)
+- [Google Shopping Scraper API](https://chocodata.com/scraper-api/google-shopping): Scrape Google Shopping search via the Universal Web Scraper API; fields like product title, price, merchant/seller name, product rating. (Search Engines)
+- [Google Shorts Scraper API](https://chocodata.com/scraper-api/google-shorts): Scrape Google Shorts search via the Universal Web Scraper API; fields like video title, channel name, view count, thumbnail URL. (Search Engines)
+- [Google Spell Check Scraper API](https://chocodata.com/scraper-api/google-spell-check): Scrape Google Spell Check search via the Universal Web Scraper API; fields like original query, corrected query, correction type (did-you-mean vs...
+- [Google Top Stories Scraper API](https://chocodata.com/scraper-api/google-top-stories): Scrape Google Top Stories search via the Universal Web Scraper API; fields like article headline, publisher name, publish time, thumbnail URL. (Search Engines)
+- [Google Trends Scraper API](https://chocodata.com/scraper-api/google-trends): Scrape Google Trends search via the Universal Web Scraper API; fields like interest-over-time values, interest by region, related queries, rising queries....
+- [Google Videos Scraper API](https://chocodata.com/scraper-api/google-videos): Scrape Google Videos search via the Universal Web Scraper API; fields like video title, source platform, uploader/channel, duration. (Search Engines)
+- [Mojeek Scraper API](https://chocodata.com/scraper-api/mojeek): Scrape Mojeek search via the Universal Web Scraper API; fields like result title, result URL, description snippet, result rank. (Search Engines)
+- [Naver Scraper API](https://chocodata.com/scraper-api/naver): Dedicated structured-JSON endpoint for Naver search: result title, result URL, snippet, source vertical. (Search Engines)
+- [Qwant Scraper API](https://chocodata.com/scraper-api/qwant): Scrape Qwant search via the Universal Web Scraper API; fields like result title, result URL, description snippet, result rank. (Search Engines)
+- [Seznam Scraper API](https://chocodata.com/scraper-api/seznam): Scrape Seznam search via the Universal Web Scraper API; fields like result title, result URL, description snippet, result rank. (Search Engines)
+- [Sogou Scraper API](https://chocodata.com/scraper-api/sogou): Scrape Sogou search via the Universal Web Scraper API; fields like result title, result URL, description snippet, result rank. (Search Engines)
+- [Startpage Scraper API](https://chocodata.com/scraper-api/startpage): Scrape Startpage search via the Universal Web Scraper API; fields like result title, result URL, description snippet, result rank. (Search Engines)
+- [Yahoo Search Scraper API](https://chocodata.com/scraper-api/yahoo-search): Scrape Yahoo Search search via the Universal Web Scraper API; fields like result title, result URL, description snippet, result rank. (Search Engines)
+- [Yandex Scraper API](https://chocodata.com/scraper-api/yandex): Scrape Yandex search via the Universal Web Scraper API; fields like result title, result URL, snippet text, result position. (Search Engines)
+- [Youcom Scraper API](https://chocodata.com/scraper-api/youcom): Scrape Youcom search via the Universal Web Scraper API; fields like AI answer text, cited source URL, source title, web result snippet. (Search Engines)
+- [Discord Scraper API](https://chocodata.com/scraper-api/discord): Scrape Discord search via the Universal Web Scraper API; fields like server name, server description, category tags, member count. (Social)
+- [Facebook Ads Scraper API](https://chocodata.com/scraper-api/facebook-ads): Dedicated structured-JSON endpoint for Facebook ads. (Social)
+- [Facebook Comments Scraper API](https://chocodata.com/scraper-api/facebook-comments): Dedicated structured-JSON endpoint for Facebook comments. (Social)
+- [Facebook Event Scraper API](https://chocodata.com/scraper-api/facebook-event): Dedicated structured-JSON endpoint for Facebook event. (Social)
+- [Facebook Group Scraper API](https://chocodata.com/scraper-api/facebook-group): Dedicated structured-JSON endpoint for Facebook group. (Social)
+- [Facebook Marketplace Scraper API](https://chocodata.com/scraper-api/facebook-marketplace): Dedicated structured-JSON endpoint for Facebook marketplace: listing title, price, location, listing photo. (Social)
+- [Facebook Page Scraper API](https://chocodata.com/scraper-api/facebook-page): Dedicated structured-JSON endpoint for Facebook page: page name, category, about description, follower count. (Social)
+- [Facebook Post Scraper API](https://chocodata.com/scraper-api/facebook-post): Dedicated structured-JSON endpoint for Facebook post. (Social)
+- [Facebook Profile Scraper API](https://chocodata.com/scraper-api/facebook-profile): Dedicated structured-JSON endpoint for Facebook profile. (Social)
+- [Facebook Scraper API](https://chocodata.com/scraper-api/facebook): Dedicated structured-JSON endpoint for Facebook search: result name, result type, profile or page URL, snippet text. (Social)
+- [Instagram Comments Scraper API](https://chocodata.com/scraper-api/instagram-comments): Dedicated structured-JSON endpoint for Instagram comments. (Social)
+- [Instagram Email Scraper API](https://chocodata.com/scraper-api/instagram-email): Dedicated structured-JSON endpoint for Instagram email. (Social)
+- [Instagram Follower Scraper API](https://chocodata.com/scraper-api/instagram-follower): Dedicated structured-JSON endpoint for Instagram follower. (Social)
+- [Instagram Post Scraper API](https://chocodata.com/scraper-api/instagram-post): Dedicated structured-JSON endpoint for Instagram post: caption, author username, like count, comment count. (Social)
+- [Instagram Profile Scraper API](https://chocodata.com/scraper-api/instagram-profile): Dedicated structured-JSON endpoint for Instagram profile. (Social)
+- [Instagram Scraper API](https://chocodata.com/scraper-api/instagram): Dedicated structured-JSON endpoint for Instagram search: username, bio, follower count, post caption. (Social)
+- [Lemmy Scraper API](https://chocodata.com/scraper-api/lemmy): Dedicated structured-JSON endpoint for Lemmy search: result title, community name, author, score. (Social)
+- [LinkedIn Email Scraper API](https://chocodata.com/scraper-api/linkedin-email): Dedicated structured-JSON endpoint for LinkedIn email. (Social)
+- [LinkedIn Post Scraper API](https://chocodata.com/scraper-api/linkedin-post): Dedicated structured-JSON endpoint for LinkedIn post. (Social)
+- [LinkedIn Profile Scraper API](https://chocodata.com/scraper-api/linkedin-profile): Dedicated structured-JSON endpoint for LinkedIn profile. (Social)
+- [Meta Ad Library Scraper API](https://chocodata.com/scraper-api/meta-ad-library): Scrape Meta Ad Library search via the Universal Web Scraper API; fields like advertiser name, ad creative text, ad media, platforms shown. (Social)
+- [Patreon Scraper API](https://chocodata.com/scraper-api/patreon): Scrape Patreon search via the Universal Web Scraper API; fields like creator name, creator description, tier names, tier prices. (Social)
+- [Pinterest Scraper API](https://chocodata.com/scraper-api/pinterest): Scrape Pinterest search via the Universal Web Scraper API; fields like pin title, pin description, pin image URL, source link. (Social)
+- [Quora Scraper API](https://chocodata.com/scraper-api/quora): Scrape Quora search via the Universal Web Scraper API; fields like question text, answer text, author name, upvote count. (Social)
+- [Reddit Comment Scraper API](https://chocodata.com/scraper-api/reddit-comment): Dedicated structured-JSON endpoint for Reddit comment. (Social)
+- [Reddit Post Scraper API](https://chocodata.com/scraper-api/reddit-post): Dedicated structured-JSON endpoint for Reddit post: post title, self-text or URL, subreddit, author. (Social)
+- [Reddit Scraper API](https://chocodata.com/scraper-api/reddit): Dedicated structured-JSON endpoint for Reddit search: post title, subreddit, author, upvote score. (Social)
+- [Reddit Subreddit Scraper API](https://chocodata.com/scraper-api/reddit-subreddit): Dedicated structured-JSON endpoint for Reddit subreddit. (Social)
+- [Reddit User Scraper API](https://chocodata.com/scraper-api/reddit-user): Dedicated structured-JSON endpoint for Reddit user. (Social)
+- [Snapchat Scraper API](https://chocodata.com/scraper-api/snapchat): Scrape Snapchat search via the Universal Web Scraper API; fields like username, display name, profile description, spotlight video. (Social)
+- [Threads Scraper API](https://chocodata.com/scraper-api/threads): Dedicated structured-JSON endpoint for Threads search: post text, author handle, like count, reply count. (Social)
+- [TikTok Comments Scraper API](https://chocodata.com/scraper-api/tiktok-comments): Dedicated structured-JSON endpoint for TikTok comments. (Social)
+- [TikTok Email Scraper API](https://chocodata.com/scraper-api/tiktok-email): Dedicated structured-JSON endpoint for TikTok email. (Social)
+- [TikTok Follower Scraper API](https://chocodata.com/scraper-api/tiktok-follower): Dedicated structured-JSON endpoint for TikTok follower. (Social)
+- [TikTok Post Scraper API](https://chocodata.com/scraper-api/tiktok-post): Dedicated structured-JSON endpoint for TikTok post: caption text, author handle, sound/track name, hashtags. (Social)
+- [TikTok Profile Scraper API](https://chocodata.com/scraper-api/tiktok-profile): Dedicated structured-JSON endpoint for TikTok profile. (Social)
+- [TikTok Scraper API](https://chocodata.com/scraper-api/tiktok): Scrape TikTok search via the Universal Web Scraper API; fields like video caption, creator handle, view count, like count. (Social)
+- [TikTok Video Scraper API](https://chocodata.com/scraper-api/tiktok-video): Dedicated structured-JSON endpoint for TikTok video. (Social)
+- [Tumblr Scraper API](https://chocodata.com/scraper-api/tumblr): Dedicated structured-JSON endpoint for Tumblr search: result post body, blog name, post type, tags. (Social)
+- [X (Twitter) Scraper API](https://chocodata.com/scraper-api/x-twitter): Dedicated structured-JSON endpoint for X (Twitter) search: post text, author handle, display name, post timestamp. (Social)
+- [X Scraper API](https://chocodata.com/scraper-api/x): Scrape X search via the Universal Web Scraper API; fields like post text, author handle, post timestamp, like count. (Social)
+- [YouTube Autocomplete Scraper API](https://chocodata.com/scraper-api/youtube-suggest): Dedicated structured-JSON endpoint for YouTube suggest: related search terms, autocomplete suggestions, long-tail keyword ideas. (Social)
+- [YouTube Channel Email Scraper API](https://chocodata.com/scraper-api/youtube-email): Dedicated structured-JSON endpoint for YouTube email: public links, link titles, link source (links section vs description), any public emails. (Social)
+- [YouTube Channel Scraper API](https://chocodata.com/scraper-api/youtube-channel): Dedicated structured-JSON endpoint for YouTube channel: channel name, handle, subscriber count, video count. (Social)
+- [YouTube Comments Scraper API](https://chocodata.com/scraper-api/youtube-comments): Dedicated structured-JSON endpoint for YouTube comments: comment text, author handle, author verified flag, like count. (Social)
+- [YouTube Playlist Scraper API](https://chocodata.com/scraper-api/youtube-playlist): Dedicated structured-JSON endpoint for YouTube playlist: playlist title, owner channel, video count, total views. (Social)
+- [YouTube Scraper API](https://chocodata.com/scraper-api/youtube): Dedicated structured-JSON endpoint for YouTube search: video title, channel name, view count, duration. (Social)
+- [YouTube Shorts Scraper API](https://chocodata.com/scraper-api/youtube-shorts): Dedicated structured-JSON endpoint for YouTube shorts: short title, view count, like count, channel. (Social)
+- [YouTube Transcript Scraper API](https://chocodata.com/scraper-api/youtube-transcript): Dedicated structured-JSON endpoint for YouTube transcript: timestamped segments, full plain-text transcript, segment start and duration, detected language....
+- [YouTube Video Scraper API](https://chocodata.com/scraper-api/youtube-video): Dedicated structured-JSON endpoint for YouTube video: video title, view count, like count, publish date. (Social)
+- [Agoda Scraper API](https://chocodata.com/scraper-api/agoda): Scrape Agoda search via the Universal Web Scraper API; fields like hotel name, nightly price, star rating, guest review score. (Travel)
+- [Airbnb Scraper API](https://chocodata.com/scraper-api/airbnb): Scrape Airbnb search via the Universal Web Scraper API; fields like listing title, price per night, rating, review count. (Travel)
+- [Booking.com Scraper API](https://chocodata.com/scraper-api/booking-com): Scrape Booking.com search via the Universal Web Scraper API; fields like property name, price per stay, review score, number of reviews. (Travel)
+- [Expedia Scraper API](https://chocodata.com/scraper-api/expedia): Scrape Expedia search via the Universal Web Scraper API; fields like hotel name, nightly price, guest rating, review count. (Travel)
+- [Hotels Scraper API](https://chocodata.com/scraper-api/hotels): Scrape Hotels search via the Universal Web Scraper API; fields like hotel name, nightly price, guest review score, review count. (Travel)
+- [Kayak Scraper API](https://chocodata.com/scraper-api/kayak): Scrape Kayak search via the Universal Web Scraper API; fields like price, airline or provider name, departure and arrival times, trip duration. (Travel)
+- [MakeMyTrip Scraper API](https://chocodata.com/scraper-api/makemytrip): Scrape MakeMyTrip search via the Universal Web Scraper API; fields like hotel or flight name, price, star rating, guest review score. (Travel)
+- [Priceline Scraper API](https://chocodata.com/scraper-api/priceline): Scrape Priceline search via the Universal Web Scraper API; fields like hotel name, nightly price, guest rating, review count. (Travel)
+- [Skyscanner Scraper API](https://chocodata.com/scraper-api/skyscanner): Scrape Skyscanner search via the Universal Web Scraper API; fields like price, airline, departure and arrival times, flight duration. (Travel)
+- [Trivago Scraper API](https://chocodata.com/scraper-api/trivago): Dedicated structured-JSON endpoint for Trivago search: result hotel name, lowest nightly price, star rating, guest rating. (Travel)
+- [Viator Scraper API](https://chocodata.com/scraper-api/viator): Scrape Viator search via the Universal Web Scraper API; fields like activity title, price, rating, review count. (Travel)
+- [Vrbo Scraper API](https://chocodata.com/scraper-api/vrbo): Scrape Vrbo search via the Universal Web Scraper API; fields like property title, price per night, rating, review count. (Travel)
+- [Universal Scraper API](https://chocodata.com/scraper-api/universal): Scrape Universal get via the Universal Web Scraper API; fields like raw HTML, page title, meta tags, visible text. (Universal)
+
+Content is licensed CC BY 4.0 with attribution to Chocodata (https://chocodata.com). Last updated 2026-08-20.

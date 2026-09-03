@@ -1,0 +1,45 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/docs/changelog
+scheme: dated entries, newest first; breaking changes flagged with 14 days advance notice via email + the page
+current_version: v1 (path-versioned API); SDKs at 0.1.x
+entries:
+  - date: '2026-07-01'
+    breaking: false
+    highlights:
+      - New endpoints across 7 platforms — Walmart (reviews, bestsellers, filters, relatedqueries), eBay (seller, related_searches), Bing (videos, recipe, richer search blocks), LinkedIn (profile, post, email), Instagram (email, follower, comments), TikTok (email, follower, comments), Facebook (ads, profile, event, group, marketplace, comments, search).
+      - Catalogue now 499 endpoints across 237 sites.
+  - date: '2026-06-11'
+    breaking: false
+    highlights:
+      - Docs restructured around the one-request-shape model; new Core concepts and Endpoint reference pages.
+      - New Universal Web Scraper API docs page (/api/v1/universal/get).
+      - Full browsable endpoint catalogue at /scraper-api.
+  - date: '2026-05-19'
+    breaking: false
+    highlights:
+      - New 404 product_not_found error code replacing misleading 502 target_unreachable for delisted items (retryable false, free).
+      - Akamai bot-manager interstitial detection with residential-IP rotation.
+      - no_results true flag for genuine zero-match search pages.
+      - Marketplace search field-extraction fixes (reviews_count, price_strikethrough, highest_price, sales_volume, organic_position).
+  - date: '2026-04-21'
+    breaking: false
+    highlights:
+      - Launched /docs on the marketing site plus /docs/llms.txt, /docs/llms-full.txt and .md variants of every doc URL for LLM ingestion.
+      - Dashboard PAYG calculator and loading skeletons.
+      - Node/Python/Go SDKs v0.1.4 README updates for 5-credit pricing.
+  - date: '2026-04-16'
+    breaking: true
+    highlights:
+      - Credit rebase — 1 basic scrape now 5 credits (was 1); plan allowances scaled x5, dollar cost unchanged.
+      - Response header prefix changed Spb-* to Asa-* with a 90-day dual-serving window.
+  - date: '2026-04-10'
+    breaking: false
+    highlights:
+      - Amazon target success rate improved from ~87% to ~97% on the latest A/B layout; gift-card and subscription templates fixed.
+  - date: '2026-04-01'
+    breaking: false
+    highlights:
+      - render_js and screenshot params reserved (501 not_implemented until shipped).
+      - New Asa-Attempts response header reporting internal retries.
+      - Non-2xx responses guaranteed free.

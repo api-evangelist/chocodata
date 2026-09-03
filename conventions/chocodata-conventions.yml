@@ -1,0 +1,72 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/docs/core-concepts + https://chocodata.com/docs/guides/authentication + https://chocodata.com/docs/guides/errors + https://chocodata.com/docs/guides/rate-limits + https://chocodata.com/docs/endpoints/batch
+auth_style:
+  scheme: api-key
+  location: query parameter api_key (the ONLY accepted location — Authorization Bearer and X-API-Key both return 401)
+  key_prefixes:
+    - prefix: asa_live_
+      meaning: Production traffic
+    - prefix: cd_test_
+      meaning: Sandbox keys (roadmap — deterministic fixtures, never hit a live target, never bill; not shipped yet)
+  rotation: Generate second key, deploy, revoke old; revocation global within ~30s. Up to 20 active keys per workspace.
+idempotency:
+  coverage: none
+  note: >-
+    No idempotency-key mechanism is documented anywhere in the docs. The single mutating
+    operation (POST /api/v1/{site}/batch, createBatch) has no documented replay protection;
+    resubmitting the same batch creates a new batch id. All other operations are GETs.
+reversibility:
+  grade: none
+  note: >-
+    The only write surface is batch submission (createBatch); no cancel, void, or delete
+    operation for a submitted batch is documented, and no reversal window is stated. All
+    other operations are read-only scrapes with nothing to reverse. Billing exposure is
+    bounded per-item: only successful (2xx) items are ever charged.
+  write_operations:
+    - operationId: createBatch
+      reversal: none documented
+dry_run_mode:
+  available: false
+  note: cd_test_ sandbox keys that would return deterministic fixtures are explicitly labelled roadmap, not shipped.
+pagination:
+  style: none-documented
+  note: >-
+    The core request shape is single-item (one identifier or query per request). Search
+    endpoints return ranked result arrays; batch polling returns full result sets. No
+    cursor/offset parameters are documented in the OpenAPI or docs.
+request_shape:
+  pattern: GET https://api.chocodata.com/api/v1/{site}/{resource}?api_key=KEY&query=...
+  note: >-
+    Parameters intentionally differ per endpoint, mirroring each target's real contract —
+    amazon.product takes query (ASIN/ISBN) or url; walmart.product takes url or id and
+    rejects query; bing.search takes q. The Universal Web Scraper (GET /api/v1/universal/get)
+    covers any URL not served by a dedicated endpoint.
+request_id_tracing:
+  field: request_id (req_... in every response body); quote it to support for the full internal trace
+error_envelope:
+  shape: '{error, message, docs_url, request_id}'
+  catalog: errors/chocodata-problem-types.yml
+  note: Non-2xx responses are never billed; each error carries a retryable semantic documented per code.
+rate_limit_signaling:
+  headers: [Retry-After, Asa-Concurrency, Asa-Rps]
+  exhaustion_status: 429
+  detail: rate-limits/chocodata-rate-limits.yml
+observability_headers:
+  - name: Asa-Cost
+    meaning: credits spent (5 standard, 0 for any non-2xx)
+  - name: Asa-Attempts
+    meaning: internal upstream retries used
+  - name: Asa-Extractor-Version
+    meaning: parser version per target (e.g. walmart@1.0.0)
+  - note: Header prefix migrated Spb-* -> Asa-* on 2026-04-16 with a 90-day dual window.
+versioning:
+  scheme: /api/v1 path versioning; 14-day advance notice on breaking changes
+  detail: lifecycle/chocodata-lifecycle.yml
+webhooks:
+  events: [batch.completed]
+  signature: HMAC SHA-256 in X-ASA-Signature ("sha256=<hex>"), secret returned once at batch creation (webhook_signature_secret)
+  headers: [X-ASA-Batch-Id, X-ASA-Event, X-ASA-Signature]
+  detail: asyncapi/chocodata-webhooks.yml
+billing_semantics:
+  rule: Only successful (HTTP 2xx) responses cost credits; 1 request = 5 credits; billed at most once per request regardless of internal retries.

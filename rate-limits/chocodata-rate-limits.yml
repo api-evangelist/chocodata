@@ -1,0 +1,46 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/docs/guides/rate-limits
+limit_count: 4
+exhaustion_status: 429
+exhaustion_error_code: rate_limited
+response_headers:
+  - name: Retry-After
+    on: 429 and 503 responses; seconds to wait before retrying
+  - name: Asa-Concurrency
+    on: every successful response; current in-flight vs allowed (e.g. "3/20")
+  - name: Asa-Rps
+    on: every successful response; current average RPS vs ceiling (e.g. "8/10")
+  - name: Asa-Attempts
+    on: every response; number of internal upstream retries used
+  - name: Asa-Cost
+    on: every response; credits spent (5 standard, 0 for any non-2xx)
+limits:
+  - scope: per-key (Free plan)
+    window: sustained, short averaging window
+    limit: 2 rps sustained
+    burst: 10 rps for 3s
+    concurrency: 10 concurrent in-flight
+  - scope: per-key (Vibe plan, $19/mo)
+    window: sustained, short averaging window
+    limit: 10 rps sustained
+    burst: 40 rps for 3s
+    concurrency: 30 concurrent in-flight
+  - scope: per-key (Pro plan, $49/mo)
+    window: sustained, short averaging window
+    limit: 25 rps sustained
+    burst: 60 rps for 3s
+    concurrency: 50 concurrent in-flight
+  - scope: per-key (Custom plan, $100-$2,000/mo)
+    window: sustained, short averaging window
+    limit: 50-500 rps sustained
+    burst: 2x sustained for 3s
+    concurrency: 100-500+ concurrent in-flight
+notes: >-
+  Two ceilings apply per API key: concurrency (in-flight requests) and sustained RPS. 429 responses
+  carry a standard Retry-After header and the JSON error envelope with error code "rate_limited";
+  429s are never billed. Batch POST submissions consume one concurrency slot only for the duration
+  of the POST; batch items are processed under a separate internal worker budget. The MCP server
+  README additionally states a 120 requests / 60s per-key ceiling. Official SDKs (Node/Python/Go/CLI)
+  respect Retry-After automatically and ship a client-side token-bucket limiter. Short-term limit
+  boosts are available by emailing info@chocodata.com.

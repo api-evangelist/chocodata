@@ -1,0 +1,69 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/pricing
+currency: USD
+billing_period: monthly
+plan_count: 5
+note: >-
+  Monthly billing, no yearly commitment, cancel any time. Every plan includes all 237 targets and
+  country-matched residential proxies; tiers differ on volume, concurrency, and support. Pay-as-you-go
+  top-up at $0.90 per 1,000 successful requests is available on every plan, only 2xx responses are
+  charged, and the top-up balance never expires. Credits model: 1 request = 5 credits (JS render +10,
+  screenshot +10 — both reserved/roadmap).
+plans:
+  - name: Free
+    price: 0
+    currency: USD
+    period: one-time
+    included_quota: 1,000 requests (5,000 credits), one-time allowance (not monthly)
+    limits:
+      concurrent_requests: 10
+      sustained_rps: 2
+    overage: PAYG top-up at $0.90 per 1,000 successful requests
+    notes: No credit card required; community support; full dashboard + analytics.
+  - name: Vibe
+    price: 19
+    currency: USD
+    period: monthly
+    included_quota: 27,000 requests / month (135,000 credits)
+    effective_rate: $0.70 per 1,000 requests
+    limits:
+      concurrent_requests: 30
+      sustained_rps: 10
+    overage: PAYG top-up at $0.90 per 1,000 successful requests
+    notes: Content-language targeting; per-API-key usage tracking; email support (1 business day).
+  - name: Pro
+    price: 49
+    currency: USD
+    period: monthly
+    included_quota: 82,000 requests / month (410,000 credits)
+    effective_rate: $0.60 per 1,000 requests
+    limits:
+      concurrent_requests: 50
+      sustained_rps: 25
+      team_seats: 5
+    overage: PAYG top-up at $0.90 per 1,000 successful requests
+    notes: Priority routing queue; email + chat support.
+  - name: Custom
+    price: 100-2000
+    currency: USD
+    period: monthly
+    included_quota: 200,000 to 4,000,000+ requests / month (flat $0.50 per 1,000 at every level)
+    effective_rate: $0.50 per 1,000 requests
+    limits:
+      concurrent_requests: 100-500+
+      sustained_rps: 50-500
+    levels:
+      - { price: 100, requests: 200000, threads: 100 }
+      - { price: 200, requests: 400000, threads: 150 }
+      - { price: 500, requests: 1000000, threads: 200 }
+      - { price: 1000, requests: 2000000, threads: 300 }
+      - { price: 2000, requests: 4000000, threads: 500 }
+    overage: PAYG top-up at $0.90 per 1,000 successful requests
+    notes: Premium proxy pool + SLA on request; unlimited team seats; wire/invoice/annual PO; dedicated Slack channel.
+  - name: Pay-as-you-go
+    price: 0.90 per 1,000 successful requests
+    currency: USD
+    period: usage-based
+    included_quota: none — pure top-up, available on every plan
+    notes: Only successful (2xx) responses are charged; balance never expires.

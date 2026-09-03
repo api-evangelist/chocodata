@@ -1,0 +1,118 @@
+generated: '2026-09-03'
+method: probed
+source: live probes of chocodata.com, www.chocodata.com, api.chocodata.com
+hit_count: 2
+path_echo_control: passed
+note: >-
+  One real document served: /.well-known/ai-plugin.json (identical on chocodata.com and www),
+  a valid v1 plugin manifest pointing at the OpenAPI at https://chocodata.com/openapi.json and
+  advertised from the provider's own root llms.txt. Negative-control probes
+  (/.well-known/chocodata-negative-control-9f2c41d7.json) returned 404 on all three hosts, so
+  the hits are genuine. Everything else 404s, including security.txt, all OAuth/OIDC discovery
+  paths, apis.json, and both A2A agent-card paths. api.chocodata.com serves an HTML 404 page
+  (status code still 404) for every well-known path.
+hosts:
+  - host: https://chocodata.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/api-catalog.json
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: chocodata-ai-plugin.json
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/apis.json
+        status: 404
+      - path: /apis.json
+        status: 404
+      - path: /apis.yml
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/chocodata-negative-control-9f2c41d7.json
+        status: 404
+  - host: https://www.chocodata.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/api-catalog.json
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: chocodata-ai-plugin.json
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/apis.json
+        status: 404
+      - path: /apis.json
+        status: 404
+      - path: /apis.yml
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/chocodata-negative-control-9f2c41d7.json
+        status: 404
+  - host: https://api.chocodata.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/api-catalog.json
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/apis.json
+        status: 404
+      - path: /apis.json
+        status: 404
+      - path: /apis.yml
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/chocodata-negative-control-9f2c41d7.json
+        status: 404

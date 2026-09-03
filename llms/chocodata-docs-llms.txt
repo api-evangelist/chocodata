@@ -1,0 +1,29 @@
+# Chocodata
+
+> Developer documentation for https://chocodata.com - a pay-for-successful-responses web scraping API. One REST endpoint returns structured JSON from 237 sites across 17 categories. Authenticate with an api_key query parameter.
+
+Every page linked below is also available as raw Markdown by replacing `.html` with `.md` in the URL, or by appending `.md` to the path (e.g. `/docs/getting-started.md`).
+
+## Overview
+
+- [Getting started](https://chocodata.com/docs/getting-started.md): Make your first scrape in under 2 minutes. Get an API key, fire one cURL request, parse the structured JSON response.
+- [Core concepts - how the API works](https://chocodata.com/docs/core-concepts.md): One request shape for the whole web. Dedicated specific-item endpoints vs the Universal scraper, the credit model, and how you only pay for successful responses.
+- [Endpoint reference](https://chocodata.com/docs/endpoint-reference.md): How 499 endpoints share one request and response shape. The resource-type model, the shared envelope, and how to find the exact endpoint for any site in the directory or the playground.
+- [Changelog](https://chocodata.com/docs/changelog.md): Every visible change to the API, the SDKs, and the dashboard. Newest first. Breaking changes are flagged; we give 14 days of notice.
+
+## API endpoints
+
+- [Product endpoint](https://chocodata.com/docs/endpoints/product.md): Extract full product data for a single product page - dozens of structured fields including price, variations, seller offers, images, category ladder.
+- [Search endpoint](https://chocodata.com/docs/endpoints/search.md): Run keyword searches on any supported site (search engines, marketplaces, job boards, and more) and get ranked results with positions, prices, ratings, and images.
+- [Universal Web Scraper API](https://chocodata.com/docs/endpoints/universal.md): Scrape any URL on the web to JSON, clean HTML, or plain text. Residential proxies and anti-bot handling for sites without a dedicated endpoint.
+- [Batch endpoint (async)](https://chocodata.com/docs/endpoints/batch.md): Submit up to 1,000 product IDs, URLs, or search queries in one call. Receive results via webhook or poll.
+
+## Guides
+
+- [Authentication](https://chocodata.com/docs/guides/authentication.md): How to authenticate requests - pass your API key as an api_key query parameter. Keys have prefixes, can be rotated, and are tied to a workspace.
+- [Error codes & retry semantics](https://chocodata.com/docs/guides/errors.md): Complete list of error codes the API returns, when to retry, and how to back off. Only 2xx responses are billed.
+- [Rate limits & concurrency](https://chocodata.com/docs/guides/rate-limits.md): Per-plan ceilings on sustained RPS and concurrent in-flight requests. What 429 means, how to check your current utilisation, and how to ask for more.
+- [SDKs, CLI & MCP](https://chocodata.com/docs/guides/sdks.md): Install and first-request snippets for the official Node, Python, Go, CLI, and MCP integrations. Each wraps auth, retries, and structured errors.
+- [Country, region, and content language](https://chocodata.com/docs/guides/country-and-language.md): How our API routes traffic to the right regional storefront and which languages each region actually serves.
+- [Scraping Social Media & App Stores](https://chocodata.com/docs/guides/social-and-app-stores.md): One REST request returns structured JSON from the App Store, Google Play, YouTube, Reddit, TikTok, X, Instagram, Facebook, and LinkedIn. Posts, videos, transcripts, comments, profiles, reviews, and job postings.
+- [Billing policy](https://chocodata.com/docs/guides/billing.md): Exactly which response types cost credits. Simple rule - only successful (2xx) responses are billed.

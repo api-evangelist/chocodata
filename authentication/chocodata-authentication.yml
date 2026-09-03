@@ -1,0 +1,31 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/docs/guides/authentication
+docs: https://chocodata.com/docs/guides/authentication
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: apiKeyQuery
+  type: apiKey
+  in: query
+  parameter: api_key
+  sources:
+  - openapi/chocodata-openapi.json
+  - https://chocodata.com/docs/guides/authentication
+  detail: >-
+    The api_key query parameter is the ONLY accepted auth location — Authorization Bearer and
+    X-API-Key headers both return 401. Unauthorized requests are free (never billed).
+key_management:
+  prefixes:
+    - prefix: asa_live_
+      meaning: Production keys
+    - prefix: cd_test_
+      meaning: Sandbox keys (roadmap — not shipped; would return deterministic fixtures without billing)
+  shortprefix: The 12 characters after the prefix identify a key in the dashboard and logs without revealing the secret.
+  issuance: Sign up at https://app.chocodata.com (Google or email+password, no card for free tier); Settings > API keys > Generate new key; full key shown exactly once.
+  rotation: Generate a second key, deploy, revoke the old; revocation is global within ~30 seconds and returns 401 {"error":"revoked"}.
+  limits: Up to 20 active keys per workspace; plan credit allowance is per workspace, aggregated across keys; per-key usage filtering in the dashboard.
+  ip_allowlists: Roadmap feature for Pro and Custom plans (manual enablement via info@chocodata.com).

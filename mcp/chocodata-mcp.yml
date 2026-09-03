@@ -1,0 +1,63 @@
+generated: '2026-09-03'
+method: searched
+status: published
+source: https://chocodata.com/docs/guides/sdks + https://github.com/ChocoData-com/chocodata-mcp + https://registry.npmjs.org/chocodata-mcp
+deployment:
+  mode: local-stdio
+  install: npx -y chocodata-mcp
+  package: https://www.npmjs.com/package/chocodata-mcp
+  auth: api-key
+  verified: searched
+  note: >-
+    Stdio-only — no hosted/remote HTTPS MCP endpoint exists. The API key is passed via the
+    CHOCODATA_API_KEY environment variable in the client's MCP config. Package chocodata-mcp
+    v0.1.0 published 2026-07-28; source repo github.com/ChocoData-com/chocodata-mcp (MIT).
+    An earlier profile note referenced @chocodata/mcp-server, which returns "Not found" on the
+    npm registry — chocodata-mcp is the real, provider-documented package.
+server:
+  name: chocodata
+  version: 0.1.0
+  transport: stdio
+  runtime: Node 18+
+  sdk: "@modelcontextprotocol/sdk (McpServer + StdioServerTransport)"
+tools:
+  - name: amazon_product
+    description: Get one Amazon product as structured JSON, by ASIN/ISBN (query) or url; prices localise to domain.
+    source_operation: openapi/chocodata-openapi.json#getProduct
+  - name: amazon_search
+    description: Amazon keyword search results.
+    source_operation: openapi/chocodata-openapi.json#getSearch
+  - name: walmart_product
+    description: One Walmart item by url or id.
+    source_operation: openapi/chocodata-openapi.json#scrape (site walmart, resource product)
+  - name: walmart_search
+    description: Walmart search results.
+    source_operation: openapi/chocodata-openapi.json#scrape (site walmart, resource search)
+  - name: ebay_product
+    description: One eBay listing with ISO currency, stock status, quantity sold/available.
+    source_operation: openapi/chocodata-openapi.json#scrape (site ebay, resource product)
+  - name: ebay_search
+    description: eBay search results.
+    source_operation: openapi/chocodata-openapi.json#scrape (site ebay, resource search)
+  - name: bing_search
+    description: Bing web results (takes q, not query).
+    source_operation: openapi/chocodata-openapi.json#scrape (site bing, resource search)
+  - name: bing_images
+    description: Bing image results with source pages; SafeSearch strict by default.
+    source_operation: openapi/chocodata-openapi.json#scrape (site bing, resource images)
+  - name: tiktok_profile
+    description: Public TikTok profile with follower/like/video counts.
+    source_operation: openapi/chocodata-openapi.json#scrape (site tiktok, resource profile)
+  - name: youtube_video
+    description: YouTube video title, exact view and like counts, duration, channel.
+    source_operation: openapi/chocodata-openapi.json#scrape (site youtube, resource video)
+  - name: instagram_profile
+    description: Public Instagram profile - followers, bio, post count, verified.
+    source_operation: openapi/chocodata-openapi.json#scrape (site instagram, resource profile)
+  - name: scrape
+    description: Generic tool reaching any of the 499 endpoints (target + resource + params).
+    source_operation: openapi/chocodata-openapi.json#scrape
+behaviour:
+  errors: Failures return readable tool errors carrying status, code, retryability, and request id (never stack traces).
+  retries: Retryable failures (429, 5xx, network) are retried automatically with backoff before the agent sees them.
+  rate_limit: 120 requests per key per 60 seconds plus per-plan concurrency ceiling; the server backs off rather than failing the tool call.

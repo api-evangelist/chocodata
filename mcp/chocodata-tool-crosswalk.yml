@@ -1,0 +1,96 @@
+generated: '2026-09-03'
+method: derived
+source: mcp/chocodata-mcp.yml + openapi/chocodata-openapi.json + https://raw.githubusercontent.com/ChocoData-com/chocodata-mcp/main/bin/server.js
+surfaces:
+  openapi: openapi/chocodata-openapi.json (11 operations; the generic GET /api/v1/{site}/{resource} covers the full 499-endpoint catalog)
+  mcp: chocodata-mcp v0.1.0, local stdio only (npx -y chocodata-mcp) — no hosted endpoint; live schemas read from the provider's own server source, not gated
+  graphql: none
+coverage:
+  mcp_tools: 12
+  rest_operations: 11
+  tools_bound: 12
+  rest_only_operations: 8
+crosswalk:
+  - tool: amazon_product
+    category: e-commerce
+    rest: [getProduct]
+    binding: dedicated
+    confidence: high
+    note: Same params (query ASIN/ISBN or url, domain, language) as GET /api/v1/amazon/product.
+  - tool: amazon_search
+    category: e-commerce
+    rest: [getSearch]
+    binding: dedicated
+    confidence: high
+    note: GET /api/v1/amazon/search.
+  - tool: walmart_product
+    category: e-commerce
+    rest: [scrape]
+    binding: generic-shape
+    confidence: high
+    note: walmart/product is served by the generic {site}/{resource} operation; the spec documents dedicated endpoints by example only. Takes url or id, rejects query.
+  - tool: walmart_search
+    category: e-commerce
+    rest: [scrape]
+    binding: generic-shape
+    confidence: high
+  - tool: ebay_product
+    category: e-commerce
+    rest: [scrape]
+    binding: generic-shape
+    confidence: high
+  - tool: ebay_search
+    category: e-commerce
+    rest: [scrape]
+    binding: generic-shape
+    confidence: high
+  - tool: bing_search
+    category: search
+    rest: [scrape]
+    binding: generic-shape
+    confidence: high
+    note: Takes q, not query — the tool schema mirrors the endpoint's real parameter name.
+  - tool: bing_images
+    category: search
+    rest: [scrape]
+    binding: generic-shape
+    confidence: high
+  - tool: tiktok_profile
+    category: social
+    rest: [scrape]
+    binding: generic-shape
+    confidence: high
+  - tool: youtube_video
+    category: video
+    rest: [scrape]
+    binding: generic-shape
+    confidence: high
+  - tool: instagram_profile
+    category: social
+    rest: [scrape]
+    binding: generic-shape
+    confidence: high
+  - tool: scrape
+    category: generic
+    rest: [scrape]
+    binding: direct
+    confidence: high
+    note: The escape hatch — target + resource + params maps 1:1 onto GET /api/v1/{site}/{resource}.
+mcp_only: []
+rest_only:
+  - operation: universalGet
+    reason: Universal Web Scraper (GET /api/v1/universal/get) has no dedicated tool; reachable via the generic scrape tool with target universal, resource get.
+  - operation: getAppStoreProduct
+    reason: No dedicated tool; reachable via the generic scrape tool.
+  - operation: getAppStoreReviews
+    reason: No dedicated tool; reachable via the generic scrape tool.
+  - operation: getGooglePlayProduct
+    reason: No dedicated tool; reachable via the generic scrape tool.
+  - operation: getYouTubeTranscript
+    reason: No dedicated tool; reachable via the generic scrape tool.
+  - operation: getYouTubeComments
+    reason: No dedicated tool; reachable via the generic scrape tool.
+  - operation: getRedditPost
+    reason: No dedicated tool; reachable via the generic scrape tool.
+  - operation: createBatch
+    reason: Async batch submission (POST) is not exposed as an MCP tool; the SDKs do not wrap it either — raw HTTP only.

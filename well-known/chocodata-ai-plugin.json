@@ -1,0 +1,12 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "chocodata",
+  "name_for_human": "Chocodata",
+  "description_for_model": "One web scraper API for the whole web. Returns structured JSON from 237 sites across 17 categories with 499 endpoints (search engines, e-commerce, social, real estate, finance, jobs, travel, news, app stores, and more); 344 return structured JSON. Coverage includes the Apple App Store (search, product, reviews), Google Play (product, search), YouTube (search, suggest, video, shorts, channel, playlist, comments, transcript, email), Reddit (subreddit, post, search, user with vote data), TikTok (search, video, post, profile, oembed, email, follower, comments), X/Twitter (tweet), Instagram (search, profile, post, email, follower, comments), Facebook (page, post, profile, ads, events, groups, marketplace, comments, search), and LinkedIn (job search, search, job, company, profile, post, email). Every endpoint follows the shape GET /api/v1/{site}/{resource}?api_key=YOUR_KEY&query=... and any other URL is scrapable via GET /api/v1/universal/get?url=... Median response time is 2.6 seconds including proxy routing and anti-bot handling. Use when extracting structured web data from any of the supported targets. Bills only for successful (2xx) responses.",
+  "description_for_human": "One web scraper API for the whole web. Structured JSON from 237 sites via a single REST call.",
+  "auth": { "type": "none" },
+  "api": { "type": "openapi", "url": "https://chocodata.com/openapi.json" },
+  "logo_url": "https://chocodata.com/logo-512.png",
+  "contact_email": "info@chocodata.com",
+  "legal_info_url": "https://chocodata.com/terms"
+}

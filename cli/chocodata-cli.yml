@@ -1,0 +1,27 @@
+generated: '2026-09-03'
+method: searched
+source: https://chocodata.com/docs/guides/sdks + https://www.npmjs.com/package/chocodata-cli
+name: chocodata
+package: chocodata-cli
+version: 0.1.0
+published: '2026-07-28'
+repository: https://github.com/ChocoData-com/chocodata-cli
+install:
+  - method: npm
+    command: npm install -g chocodata-cli
+auth:
+  command: chocodata login asa_live_YOUR_KEY
+  storage: ~/.chocodata/config.json
+command_surface:
+  shape: chocodata <target> <resource> --<param> <value> — mirrors the API's {site}/{resource} shape with each endpoint's real parameter names as flags
+  examples:
+    - chocodata amazon product --query 0143127748
+    - chocodata amazon product --query 0143127748 --domain de
+    - chocodata bing images --q "red panda" --count 20
+    - chocodata tiktok profile --username rotana
+key_flows:
+  - name: Ad-hoc scrape
+    description: One target/resource per invocation; JSON to stdout.
+  - name: Bulk NDJSON pipeline
+    description: Pipe a list of IDs via stdin — cat asins.txt | chocodata amazon product --stdin-param query --ndjson > out.ndjson. Successes go to stdout, errors to stderr, so a partial failure still leaves a clean NDJSON stream.
+behaviour: Applies the same retry/backoff policy as the SDKs (respects Retry-After; never retries permanent errors).

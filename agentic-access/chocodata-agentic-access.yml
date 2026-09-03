@@ -1,0 +1,77 @@
+generated: '2026-09-03'
+method: generated
+source: openapi/chocodata-openapi.json + https://chocodata.com/docs (billing, batch, auth guides)
+note: >-
+  Recommended x-agentic-access classifications for each OpenAPI operation. Chocodata is almost
+  entirely a read surface — every operation except createBatch is a GET scrape with no state
+  change on the provider side beyond credit consumption (5 credits per successful request,
+  non-2xx free). The consequential dimension is spend, not mutation.
+operations:
+  - operationId: scrape
+    action_class: read
+    consequence: billable-read
+    scope: any supported site/resource
+    token: api-key (api_key query parameter)
+    escalation: none
+    note: 5 credits per successful call; agent spend is bounded by plan credits and rate ceilings.
+  - operationId: universalGet
+    action_class: read
+    consequence: billable-read
+    scope: any URL on the web
+    token: api-key
+    escalation: none
+  - operationId: getProduct
+    action_class: read
+    consequence: billable-read
+    scope: single Amazon product
+    token: api-key
+    escalation: none
+  - operationId: getSearch
+    action_class: read
+    consequence: billable-read
+    scope: Amazon search results
+    token: api-key
+    escalation: none
+  - operationId: getAppStoreProduct
+    action_class: read
+    consequence: billable-read
+    scope: single App Store app
+    token: api-key
+    escalation: none
+  - operationId: getAppStoreReviews
+    action_class: read
+    consequence: billable-read
+    scope: App Store reviews for one app
+    token: api-key
+    escalation: none
+  - operationId: getGooglePlayProduct
+    action_class: read
+    consequence: billable-read
+    scope: single Google Play app
+    token: api-key
+    escalation: none
+  - operationId: getYouTubeTranscript
+    action_class: read
+    consequence: billable-read
+    scope: transcript of one YouTube video
+    token: api-key
+    escalation: none
+  - operationId: getYouTubeComments
+    action_class: read
+    consequence: billable-read
+    scope: comments of one YouTube video
+    token: api-key
+    escalation: none
+  - operationId: getRedditPost
+    action_class: read
+    consequence: billable-read
+    scope: single Reddit post with comment tree
+    token: api-key
+    escalation: none
+  - operationId: createBatch
+    action_class: create
+    consequence: bulk-spend
+    scope: up to 1,000 items per submission, each billed independently on success (up to 5,000 credits per batch)
+    token: api-key
+    escalation: recommend human confirmation above the agent's spend cap — no cancel operation exists once submitted
+    note: The one mutating operation; no documented reversal or cancellation path.

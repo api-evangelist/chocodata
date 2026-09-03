@@ -1,0 +1,19 @@
+generated: '2026-09-03'
+method: generated
+source: openapi/chocodata-openapi.json + https://chocodata.com/docs
+note: >-
+  Generated skills grounded in real operationIds from the provider's own OpenAPI. Chocodata
+  publishes no first-party Claude skills for this product — the provider-published skills in
+  the shared ChocoData-com GitHub org (amazon-scraper-api-skills, scrape-amazon-product-skill,
+  scrape-amazon-search-results-skill) belong to the sibling product Amazon Scraper API
+  (amazonscraperapi.com) and are deliberately not imported here.
+skills:
+  - file: chocodata-scrape-product.md
+    name: chocodata-scrape-product
+    operations: [getProduct, getAppStoreProduct, getGooglePlayProduct, getRedditPost, getYouTubeTranscript, getYouTubeComments, getAppStoreReviews, scrape]
+  - file: chocodata-batch-scraping.md
+    name: chocodata-batch-scraping
+    operations: [createBatch]
+  - file: chocodata-universal-scrape.md
+    name: chocodata-universal-scrape
+    operations: [universalGet]
