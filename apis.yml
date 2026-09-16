@@ -40,38 +40,104 @@ tags_raw:
 - agent-native
 - structured-json
 apis:
-- name: Chocodata Scraper API
-  description: REST API (HTTP + JSON, API-key auth via ?api_key=) returning structured data from a catalog of sites.
-    Endpoints include Product, Search, Universal Web Scraper, and Batch (async). Base host is api.chocodata.com.
+- aid: chocodata:chocodata-amazon-api
+  name: Chocodata Amazon API
+  description: The Amazon API from Chocodata — 3 operation(s) for amazon.
   humanURL: https://chocodata.com/docs
   baseURL: https://api.chocodata.com
   tags:
-  - Web Scraping
-  - Data Extraction
-  - SERP
-  - E-Commerce Data
-  - social-media-data
-  - Proxy
-  - MCP
-  - agent-native
-  - structured-json
-  tags_raw:
-  - web-scraping
-  - data-extraction
-  - serp
-  - e-commerce-data
-  - social-media-data
-  - proxy
-  - mcp
-  - agent-native
-  - structured-json
+  - Amazon
   properties:
+  - type: OpenAPI
+    url: openapi/chocodata-amazon-api-openapi.yml
   - type: Documentation
     url: https://chocodata.com/docs
   - type: LLMSTxt
     url: https://chocodata.com/docs/llms.txt
+- aid: chocodata:chocodata-appstore-api
+  name: Chocodata Appstore API
+  description: The Appstore API from Chocodata — 2 operation(s) for appstore.
+  humanURL: https://chocodata.com/docs
+  baseURL: https://api.chocodata.com
+  tags:
+  - Appstore
+  properties:
   - type: OpenAPI
-    url: openapi/chocodata-openapi.json
+    url: openapi/chocodata-appstore-api-openapi.yml
+  - type: Documentation
+    url: https://chocodata.com/docs
+  - type: LLMSTxt
+    url: https://chocodata.com/docs/llms.txt
+- aid: chocodata:chocodata-chocodata-api
+  name: Chocodata Chocodata API
+  description: The Chocodata API from Chocodata — 1 operation(s) for chocodata.
+  humanURL: https://chocodata.com/docs
+  baseURL: https://api.chocodata.com
+  tags:
+  - Chocodata
+  properties:
+  - type: OpenAPI
+    url: openapi/chocodata-chocodata-api-openapi.yml
+  - type: Documentation
+    url: https://chocodata.com/docs
+  - type: LLMSTxt
+    url: https://chocodata.com/docs/llms.txt
+- aid: chocodata:chocodata-googleplay-api
+  name: Chocodata Googleplay API
+  description: The Googleplay API from Chocodata — 1 operation(s) for googleplay.
+  humanURL: https://chocodata.com/docs
+  baseURL: https://api.chocodata.com
+  tags:
+  - Googleplay
+  properties:
+  - type: OpenAPI
+    url: openapi/chocodata-googleplay-api-openapi.yml
+  - type: Documentation
+    url: https://chocodata.com/docs
+  - type: LLMSTxt
+    url: https://chocodata.com/docs/llms.txt
+- aid: chocodata:chocodata-reddit-api
+  name: Chocodata Reddit API
+  description: The Reddit API from Chocodata — 1 operation(s) for reddit.
+  humanURL: https://chocodata.com/docs
+  baseURL: https://api.chocodata.com
+  tags:
+  - Reddit
+  properties:
+  - type: OpenAPI
+    url: openapi/chocodata-reddit-api-openapi.yml
+  - type: Documentation
+    url: https://chocodata.com/docs
+  - type: LLMSTxt
+    url: https://chocodata.com/docs/llms.txt
+- aid: chocodata:chocodata-universal-api
+  name: Chocodata Universal API
+  description: The Universal API from Chocodata — 1 operation(s) for universal.
+  humanURL: https://chocodata.com/docs
+  baseURL: https://api.chocodata.com
+  tags:
+  - Universal
+  properties:
+  - type: OpenAPI
+    url: openapi/chocodata-universal-api-openapi.yml
+  - type: Documentation
+    url: https://chocodata.com/docs
+  - type: LLMSTxt
+    url: https://chocodata.com/docs/llms.txt
+- aid: chocodata:chocodata-youtube-api
+  name: Chocodata Youtube API
+  description: The Youtube API from Chocodata — 2 operation(s) for youtube.
+  humanURL: https://chocodata.com/docs
+  baseURL: https://api.chocodata.com
+  tags:
+  - Youtube
+  properties:
+  - type: OpenAPI
+    url: openapi/chocodata-youtube-api-openapi.yml
+  - type: Documentation
+    url: https://chocodata.com/docs
+  - type: LLMSTxt
+    url: https://chocodata.com/docs/llms.txt
 maintainers:
 - FN: Chocodata
   url: https://chocodata.com
