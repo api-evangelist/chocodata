@@ -54,20 +54,6 @@ apis:
     url: https://chocodata.com/docs
   - type: LLMSTxt
     url: https://chocodata.com/docs/llms.txt
-- aid: chocodata:chocodata-appstore-api
-  name: Chocodata Appstore API
-  description: The Appstore API from Chocodata — 2 operation(s) for appstore.
-  humanURL: https://chocodata.com/docs
-  baseURL: https://api.chocodata.com
-  tags:
-  - Appstore
-  properties:
-  - type: OpenAPI
-    url: openapi/chocodata-appstore-api-openapi.yml
-  - type: Documentation
-    url: https://chocodata.com/docs
-  - type: LLMSTxt
-    url: https://chocodata.com/docs/llms.txt
 - aid: chocodata:chocodata-chocodata-api
   name: Chocodata Chocodata API
   description: The Chocodata API from Chocodata — 1 operation(s) for chocodata.
@@ -78,20 +64,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/chocodata-chocodata-api-openapi.yml
-  - type: Documentation
-    url: https://chocodata.com/docs
-  - type: LLMSTxt
-    url: https://chocodata.com/docs/llms.txt
-- aid: chocodata:chocodata-googleplay-api
-  name: Chocodata Googleplay API
-  description: The Googleplay API from Chocodata — 1 operation(s) for googleplay.
-  humanURL: https://chocodata.com/docs
-  baseURL: https://api.chocodata.com
-  tags:
-  - Googleplay
-  properties:
-  - type: OpenAPI
-    url: openapi/chocodata-googleplay-api-openapi.yml
   - type: Documentation
     url: https://chocodata.com/docs
   - type: LLMSTxt
@@ -134,6 +106,34 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/chocodata-youtube-api-openapi.yml
+  - type: Documentation
+    url: https://chocodata.com/docs
+  - type: LLMSTxt
+    url: https://chocodata.com/docs/llms.txt
+- aid: chocodata:chocodata-app-store-api
+  name: Chocodata App Store API
+  description: The App Store API from Chocodata — 2 operation(s) for app store.
+  humanURL: https://chocodata.com/docs
+  baseURL: https://api.chocodata.com
+  tags:
+  - App Store
+  properties:
+  - type: OpenAPI
+    url: openapi/chocodata-app-store-api-openapi.yml
+  - type: Documentation
+    url: https://chocodata.com/docs
+  - type: LLMSTxt
+    url: https://chocodata.com/docs/llms.txt
+- aid: chocodata:chocodata-google-play-api
+  name: Chocodata Google Play API
+  description: The Google Play API from Chocodata — 1 operation(s) for google play.
+  humanURL: https://chocodata.com/docs
+  baseURL: https://api.chocodata.com
+  tags:
+  - Google Play
+  properties:
+  - type: OpenAPI
+    url: openapi/chocodata-google-play-api-openapi.yml
   - type: Documentation
     url: https://chocodata.com/docs
   - type: LLMSTxt
