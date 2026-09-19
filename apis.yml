@@ -102,6 +102,8 @@ apis:
   humanURL: https://chocodata.com/docs
   baseURL: https://api.chocodata.com
   tags:
+  - YouTube
+  tags_raw:
   - Youtube
   properties:
   - type: OpenAPI
