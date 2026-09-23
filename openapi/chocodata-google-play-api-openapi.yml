@@ -1,0 +1,59 @@
+openapi: 3.2.0
+info:
+  title: Chocodata Googleplay API
+  version: 1.0.0
+  description: One web scraper API for the whole web.
+  contact:
+    name: Chocodata
+    url: https://chocodata.com
+    email: hello@chocodata.com
+servers:
+- url: https://api.chocodata.com
+security:
+- apiKeyQuery: []
+tags:
+- name: Google Play
+paths:
+  /api/v1/googleplay/product:
+    get:
+      operationId: getGooglePlayProduct
+      summary: 'Specific-item endpoint: structured data for a single Google Play app'
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your API key.
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Google Play package name, e.g. com.spotify.music.
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+          default: us
+        description: Two-letter storefront country code.
+      responses:
+        '200':
+          description: 'Structured app data: title, developer, rating, installs, price, description, and more.'
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Missing or invalid API key.
+        '502':
+          description: The target site blocked us or returned an unparseable page (not charged).
+      tags:
+      - Google Play
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key

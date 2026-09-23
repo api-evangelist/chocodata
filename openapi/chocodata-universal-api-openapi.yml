@@ -1,0 +1,70 @@
+openapi: 3.2.0
+info:
+  title: Chocodata Universal API
+  version: 1.0.0
+  description: One web scraper API for the whole web.
+  contact:
+    name: Chocodata
+    url: https://chocodata.com
+    email: hello@chocodata.com
+servers:
+- url: https://api.chocodata.com
+security:
+- apiKeyQuery: []
+tags:
+- name: Universal
+paths:
+  /api/v1/universal/get:
+    get:
+      operationId: universalGet
+      summary: Scrape any URL on any site through the Universal Web Scraper API
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your API key.
+      - name: url
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uri
+        description: The full https URL to fetch.
+      - name: parse
+        in: query
+        required: false
+        schema:
+          type: string
+          default: auto
+          enum:
+          - auto
+          - html
+          - text
+        description: Response parse mode.
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Two-letter country code for residential proxy geo-targeting.
+      responses:
+        '200':
+          description: The page as JSON in the chosen parse mode.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Missing or invalid API key.
+        '502':
+          description: The target site blocked us or returned an unparseable page (not charged).
+      tags:
+      - Universal
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key

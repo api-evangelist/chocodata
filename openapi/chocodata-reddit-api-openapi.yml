@@ -1,0 +1,52 @@
+openapi: 3.2.0
+info:
+  title: Chocodata Reddit API
+  version: 1.0.0
+  description: One web scraper API for the whole web.
+  contact:
+    name: Chocodata
+    url: https://chocodata.com
+    email: hello@chocodata.com
+servers:
+- url: https://api.chocodata.com
+security:
+- apiKeyQuery: []
+tags:
+- name: Reddit
+paths:
+  /api/v1/reddit/post:
+    get:
+      operationId: getRedditPost
+      summary: 'Specific-item endpoint: a single Reddit post with its comment tree and vote data'
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your API key.
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Reddit post id or permalink URL.
+      responses:
+        '200':
+          description: Post body, author, score and upvote ratio, plus the nested comments with their vote data.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Missing or invalid API key.
+        '502':
+          description: The target site blocked us or returned an unparseable page (not charged).
+      tags:
+      - Reddit
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key

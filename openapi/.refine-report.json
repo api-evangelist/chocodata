@@ -1,0 +1,53 @@
+{
+  "provider": "chocodata",
+  "sources": [
+    "_original/chocodata-openapi.json"
+  ],
+  "outputs": [
+    "chocodata-amazon-api-openapi.yml",
+    "chocodata-appstore-api-openapi.yml",
+    "chocodata-chocodata-api-openapi.yml",
+    "chocodata-googleplay-api-openapi.yml",
+    "chocodata-reddit-api-openapi.yml",
+    "chocodata-universal-api-openapi.yml",
+    "chocodata-youtube-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "chocodata-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "chocodata-openapi.json: tagged paths GET /api/v1/{site}/{resource} -> Chocodata",
+    "chocodata-openapi.json: tagged paths GET /api/v1/universal/get -> Universal",
+    "chocodata-openapi.json: tagged paths GET /api/v1/amazon/product -> Amazon",
+    "chocodata-openapi.json: tagged paths GET /api/v1/amazon/search -> Amazon",
+    "chocodata-openapi.json: tagged paths GET /api/v1/appstore/product -> Appstore",
+    "chocodata-openapi.json: tagged paths GET /api/v1/appstore/reviews -> Appstore",
+    "chocodata-openapi.json: tagged paths GET /api/v1/googleplay/product -> Googleplay",
+    "chocodata-openapi.json: tagged paths GET /api/v1/youtube/transcript -> Youtube",
+    "chocodata-openapi.json: tagged paths GET /api/v1/youtube/comments -> Youtube",
+    "chocodata-openapi.json: tagged paths GET /api/v1/reddit/post -> Reddit",
+    "chocodata-openapi.json: tagged paths POST /api/v1/amazon/batch -> Amazon",
+    "chocodata-openapi.json: declared missing tag: Amazon",
+    "chocodata-openapi.json: declared missing tag: Appstore",
+    "chocodata-openapi.json: declared missing tag: Chocodata",
+    "chocodata-openapi.json: declared missing tag: Googleplay",
+    "chocodata-openapi.json: declared missing tag: Reddit",
+    "chocodata-openapi.json: declared missing tag: Universal",
+    "chocodata-openapi.json: declared missing tag: Youtube",
+    "superseded outputs removed: chocodata-app-store-api-openapi.yml, chocodata-google-play-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 7 total)"
+  ],
+  "skipped": [
+    "chocodata-amazon-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chocodata-app-store-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chocodata-chocodata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chocodata-google-play-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chocodata-reddit-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chocodata-universal-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "chocodata-youtube-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

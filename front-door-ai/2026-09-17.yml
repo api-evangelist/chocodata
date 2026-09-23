@@ -1,0 +1,30 @@
+# Front Door AI Index — chocodata — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: chocodata
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: chocodata.com
+  final_host: chocodata.com
+  ownership: own
+  owner: chocodata
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 10
+  host_score: 10
+  density: 6.01
+  words: 1664
+  tiers:
+    agentic: 6
+    core: 4
+    model: 0
+  ambiguous: 2
+  top_terms:
+    MCP: 4
+    AI agent: 2
+    AI: 2
+    agent: 2
+    LLMs: 1
+    ML: 1

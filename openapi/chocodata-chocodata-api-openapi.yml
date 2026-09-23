@@ -1,0 +1,67 @@
+openapi: 3.2.0
+info:
+  title: Chocodata API
+  version: 1.0.0
+  description: One web scraper API for the whole web.
+  contact:
+    name: Chocodata
+    url: https://chocodata.com
+    email: hello@chocodata.com
+servers:
+- url: https://api.chocodata.com
+security:
+- apiKeyQuery: []
+tags:
+- name: Chocodata
+paths:
+  /api/v1/{site}/{resource}:
+    get:
+      operationId: scrape
+      summary: 'Generic endpoint shape: scrape one resource type on one supported site'
+      description: All 499 endpoints follow this shape. {site} is the target (google, amazon, walmart, linkedin, zillow, appstore, googleplay, youtube, reddit, tiktok, ...) and {resource} the data type (search, product, article, job, listing, video, transcript, comments, subreddit, post, ...). Parameters beyond api_key vary per endpoint; each landing page under https://chocodata.com/scraper-api/ documents its own parameter table.
+      parameters:
+      - name: site
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Target site slug, e.g. google, amazon, walmart, zillow.
+      - name: resource
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Resource type on that site, e.g. search, product, article, job.
+      - name: api_key
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your API key, passed as the api_key query parameter.
+      - name: query
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The common lookup parameter (keyword, ID, or URL); exact name and extras vary per endpoint.
+      responses:
+        '200':
+          description: Validated structured JSON for the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Missing or invalid API key.
+        '400':
+          description: Invalid parameters.
+        '502':
+          description: The target site blocked us or returned an unparseable page (not charged).
+      tags:
+      - Chocodata
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key

@@ -1,0 +1,86 @@
+openapi: 3.2.0
+info:
+  title: Chocodata Youtube API
+  version: 1.0.0
+  description: One web scraper API for the whole web.
+  contact:
+    name: Chocodata
+    url: https://chocodata.com
+    email: hello@chocodata.com
+servers:
+- url: https://api.chocodata.com
+security:
+- apiKeyQuery: []
+tags:
+- name: Youtube
+paths:
+  /api/v1/youtube/transcript:
+    get:
+      operationId: getYouTubeTranscript
+      summary: 'Specific-item endpoint: the timed transcript for a single YouTube video'
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your API key.
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: YouTube video id or watch URL.
+      - name: language
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Preferred transcript language code, e.g. en.
+      responses:
+        '200':
+          description: Transcript segments with start time, duration, and text.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Missing or invalid API key.
+        '502':
+          description: The target site blocked us or returned an unparseable page (not charged).
+      tags:
+      - Youtube
+  /api/v1/youtube/comments:
+    get:
+      operationId: getYouTubeComments
+      summary: Comments for a single YouTube video
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your API key.
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: YouTube video id or watch URL.
+      responses:
+        '200':
+          description: List of comments with author, text, like count, and timestamp.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Missing or invalid API key.
+      tags:
+      - Youtube
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key

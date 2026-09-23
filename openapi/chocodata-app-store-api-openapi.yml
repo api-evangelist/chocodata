@@ -1,0 +1,94 @@
+openapi: 3.2.0
+info:
+  title: Chocodata Appstore API
+  version: 1.0.0
+  description: One web scraper API for the whole web.
+  contact:
+    name: Chocodata
+    url: https://chocodata.com
+    email: hello@chocodata.com
+servers:
+- url: https://api.chocodata.com
+security:
+- apiKeyQuery: []
+tags:
+- name: App Store
+paths:
+  /api/v1/appstore/product:
+    get:
+      operationId: getAppStoreProduct
+      summary: 'Specific-item endpoint: structured data for a single Apple App Store app'
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your API key, passed as the api_key query parameter.
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: App Store app id or bundle id.
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+          default: us
+        description: Two-letter storefront country code.
+      responses:
+        '200':
+          description: 'Structured app data: title, developer, rating, price, screenshots, description, and more.'
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Missing or invalid API key.
+        '502':
+          description: The target site blocked us or returned an unparseable page (not charged).
+      tags:
+      - App Store
+  /api/v1/appstore/reviews:
+    get:
+      operationId: getAppStoreReviews
+      summary: Apple App Store reviews for a single app
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your API key.
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: App Store app id.
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+          default: us
+        description: Two-letter storefront country code.
+      responses:
+        '200':
+          description: List of reviews with rating, title, body, author, and date.
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          description: Missing or invalid API key.
+      tags:
+      - App Store
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
