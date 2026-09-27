@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Chocodata Youtube API
+  title: Chocodata YouTube API
   version: 1.0.0
   description: One web scraper API for the whole web.
   contact:
