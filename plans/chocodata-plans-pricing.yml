@@ -67,3 +67,46 @@ plans:
     period: usage-based
     included_quota: none — pure top-up, available on every plan
     notes: Only successful (2xx) responses are charged; balance never expires.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - one-time
+  - name: Vibe
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Pro
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Custom
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Pay-as-you-go
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - other
